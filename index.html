@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nicolò Frabetti — Product Designer</title>
+<meta name="description" content="Portfolio di Nicolò Frabetti, Product Designer. Progetti di design del prodotto, arredo e ricerca formale.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Archivo+Expanded:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0a0a0a;
+    --white:#fafafa;
+    --line:#2a2a2a;
+    --line-light:#dcdcdc;
+    --mute:#8c8c8c;
+    --ff-display:'Archivo Expanded', 'Archivo', sans-serif;
+    --ff-body:'Archivo', sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--white);
+    color:var(--black);
+    font-family:var(--ff-body);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+
+  ::selection{background:var(--black);color:var(--white);}
+
+  /* ---------- focus ---------- */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--black);
+    outline-offset:3px;
+  }
+
+  /* ---------- topbar ---------- */
+  .topbar{
+    position:fixed; top:0; left:0; right:0;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:28px clamp(20px,4vw,56px);
+    z-index:100;
+    mix-blend-mode:difference;
+  }
+  .topbar, .topbar a, .topbar span{color:var(--white);}
+  .topbar .name{
+    font-family:var(--ff-display);
+    font-weight:800;
+    font-size:15px;
+    letter-spacing:0.02em;
+  }
+  .topbar nav{display:flex;gap:clamp(16px,3vw,36px);font-size:13px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;}
+  .topbar nav a{opacity:0.75;transition:opacity .2s;}
+  .topbar nav a:hover{opacity:1;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:100svh;
+    background:var(--black);
+    color:var(--white);
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:120px clamp(20px,4vw,56px) 60px;
+    position:relative;
+  }
+  .hero-year{
+    position:absolute;
+    top:140px; right:clamp(20px,4vw,56px);
+    writing-mode:vertical-rl;
+    font-family:var(--ff-display);
+    font-weight:800;
+    font-size:14px;
+    letter-spacing:0.3em;
+    color:var(--mute);
+  }
+  .hero-role{
+    font-size:clamp(13px,1.6vw,16px);
+    font-weight:600;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--mute);
+    margin-bottom:18px;
+  }
+  .hero h1{
+    font-family:var(--ff-display);
+    font-weight:900;
+    font-size:clamp(52px,11vw,160px);
+    line-height:0.92;
+    letter-spacing:-0.01em;
+    text-transform:uppercase;
+  }
+  .hero-sub{
+    margin-top:32px;
+    max-width:640px;
+    font-size:clamp(15px,1.8vw,19px);
+    line-height:1.55;
+    color:#cfcfcf;
+    font-weight:500;
+  }
+  .hero-meta{
+    margin-top:56px;
+    display:flex;
+    gap:clamp(24px,5vw,64px);
+    flex-wrap:wrap;
+  }
+  .hero-meta div{font-size:13px;}
+  .hero-meta .label{color:var(--mute);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-bottom:6px;}
+  .hero-meta .value{font-weight:700;font-size:14px;}
+
+  /* ---------- intro strip ---------- */
+  .intro{
+    padding:120px clamp(20px,4vw,56px);
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    border-bottom:1px solid var(--line-light);
+  }
+  .intro-photo{
+    aspect-ratio:4/5;
+    background:#eee;
+    border:1px solid var(--line-light);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .intro-photo img{width:100%;height:100%;object-fit:cover;}
+  .intro-photo .placeholder{
+    text-align:center;
+    color:#aaa;
+    font-size:13px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:24px;
+    line-height:1.6;
+  }
+  .img-placeholder{
+    width:100%;
+    height:100%;
+    background:repeating-linear-gradient(135deg, #ececec, #ececec 10px, #e3e3e3 10px, #e3e3e3 20px);
+    border:1px dashed #c4c4c4;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:#999;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:12px;
+    line-height:1.5;
+    box-sizing:border-box;
+  }
+  .text-placeholder{color:#aaa;font-style:italic;}
+  .intro-text{display:flex;flex-direction:column;justify-content:center;}
+  .intro-eyebrow{
+    font-size:13px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--mute);
+    margin-bottom:20px;
+  }
+  .intro-text p{
+    font-size:clamp(22px,2.6vw,32px);
+    line-height:1.35;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  .intro-text p + p{margin-top:24px;}
+  .intro-text .accent{font-family:var(--ff-display);font-weight:800;}
+
+  /* ---------- section label ---------- */
+  .section-label{
+    padding:48px clamp(20px,4vw,56px) 0;
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+  }
+  .section-label .num{font-family:var(--ff-display);font-weight:800;color:var(--mute);font-size:13px;}
+  .section-label h2{
+    font-family:var(--ff-display);
+    font-weight:900;
+    font-size:clamp(28px,4vw,44px);
+    text-transform:uppercase;
+    letter-spacing:-0.01em;
+  }
+
+  /* ---------- project index (grid) ---------- */
+  .project-index-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:var(--line-light);
+    border-top:1px solid var(--line-light);
+    border-bottom:1px solid var(--line-light);
+    margin-top:48px;
+  }
+  .project-index-grid > .project{
+    grid-column:1 / -1;
+    background:var(--white);
+  }
+  .index-card{
+    background:var(--white);
+    padding:clamp(28px,3vw,40px);
+    cursor:pointer;
+    border:none;
+    text-align:left;
+    width:100%;
+    font:inherit;
+    color:inherit;
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+    transition:background .3s ease, color .3s ease;
+  }
+  .index-card:hover{background:#f1f1f1;}
+  .index-card[data-accent]:hover{
+    background:color-mix(in srgb, var(--accent) 16%, white);
+  }
+  .index-card.is-open{
+    background:var(--accent-dark, var(--accent, var(--black)));
+    color:var(--white);
+    transition:background .4s ease;
+  }
+  .index-card.is-open:hover{
+    background:var(--accent-dark, var(--accent, var(--black)));
+  }
+  .index-card.is-open .index-card-num{color:rgba(255,255,255,0.7);}
+  .index-card.is-open .tag{border-color:var(--white);}
+  .index-card-thumb{
+    width:100%;
+    max-width:280px;
+    aspect-ratio:1/1;
+    overflow:hidden;
+    background:#eee;
+    position:relative;
+  }
+  .index-card-thumb img{
+    width:100%;height:100%;object-fit:cover;
+    transition:transform .6s cubic-bezier(.2,.8,.2,1);
+  }
+  .index-card:hover .index-card-thumb img{transform:scale(1.06);}
+  .index-card-meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:16px;
+  }
+  .index-card-num{
+    font-family:var(--ff-display);
+    font-weight:800;
+    font-size:13px;
+    color:var(--mute);
+  }
+  .index-card-title{
+    font-family:var(--ff-display);
+    font-weight:900;
+    font-size:clamp(22px,2.6vw,32px);
+    line-height:1.05;
+    text-transform:uppercase;
+    letter-spacing:-0.01em;
+    margin-top:6px;
+  }
+  .index-card-tags{
+    display:flex;gap:6px;flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+  .index-card .tag{font-size:10px;padding:5px 10px;}
+  .index-card.is-open .tag{border-color:var(--white);}
+  .index-card-toggle{
+    font-size:12px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .index-card-toggle .plus{
+    display:inline-block;
+    width:18px;height:18px;
+    position:relative;
+    flex-shrink:0;
+  }
+  .index-card-toggle .plus::before,
+  .index-card-toggle .plus::after{
+    content:'';
+    position:absolute;
+    background:currentColor;
+    transition:transform .35s cubic-bezier(.2,.8,.2,1);
+  }
+  .index-card-toggle .plus::before{left:0;top:50%;width:100%;height:1.5px;transform:translateY(-50%);}
+  .index-card-toggle .plus::after{top:0;left:50%;width:1.5px;height:100%;transform:translateX(-50%);}
+  .index-card.is-open .index-card-toggle .plus::after{transform:translateX(-50%) rotate(90deg);opacity:0;}
+  .index-card-toggle .label-open{display:none;}
+  .index-card.is-open .index-card-toggle .label-default{display:none;}
+  .index-card.is-open .index-card-toggle .label-open{display:inline;}
+
+  /* ---------- project list ---------- */
+  .project{
+    grid-column:1 / -1;
+    border-top:0px solid var(--accent, var(--line-light));
+    display:grid;
+    grid-template-rows:0fr;
+    transition:grid-template-rows .55s cubic-bezier(.2,.8,.2,1), border-top-width .1s linear .45s, border-color .3s ease;
+  }
+  .project.is-open{
+    grid-template-rows:1fr;
+    border-top-width:3px;
+    transition:grid-template-rows .55s cubic-bezier(.2,.8,.2,1), border-top-width 0s, border-color .3s ease;
+  }
+  .project.is-open .project-index{color:var(--accent, var(--mute));transition:color .4s ease .15s;}
+  .project.is-open .project-tags .tag{
+    border-color:var(--accent, var(--black));
+    color:var(--accent, var(--black));
+    transition:border-color .4s ease .15s, color .4s ease .15s;
+  }
+  .project.is-open .project-close{transition:color .2s;}
+  .project.is-open .project-close:hover{color:var(--accent, var(--black));}
+  .project-inner{
+    overflow:hidden;
+    min-height:0;
+  }
+  .project-body{
+    padding:56px clamp(20px,4vw,56px) 72px;
+    opacity:0;
+    transform:translateY(-12px);
+    transition:opacity .45s ease .08s, transform .45s ease .08s;
+  }
+  .project.is-open .project-body{opacity:1;transform:translateY(0);}
+  .project-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:24px;
+    flex-wrap:wrap;
+    margin-bottom:40px;
+  }
+  .project-head-left{display:flex;align-items:baseline;gap:20px;}
+  .project-index{
+    font-family:var(--ff-display);
+    font-weight:800;
+    font-size:14px;
+    color:var(--mute);
+  }
+  .project-title-open{
+    font-family:var(--ff-display);
+    font-weight:900;
+    font-size:clamp(30px,5vw,64px);
+    line-height:0.95;
+    text-transform:uppercase;
+    letter-spacing:-0.01em;
+  }
+  .project-tags{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .tag{
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    border:1px solid var(--black);
+    padding:6px 12px;
+    border-radius:100px;
+  }
+  .project-close{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:12px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--mute);
+    background:none;
+    border:none;
+    cursor:pointer;
+    font-family:inherit;
+    padding:8px 0;
+  }
+  .project-close:hover{color:var(--black);}
+  .project-close .x{font-size:16px;line-height:1;}
+  .project-grid{
+    display:grid;
+    grid-template-columns:0.75fr 1fr;
+    gap:40px;
+    margin-bottom:40px;
+    align-items:start;
+  }
+  .project-photo{
+    width:100%;
+    max-width:380px;
+    aspect-ratio:4/5;
+    object-fit:cover;
+    background:#eee;
+  }
+  .project-info{display:flex;flex-direction:column;gap:28px;}
+  .info-block .info-label{
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--mute);margin-bottom:8px;
+  }
+  .info-block .info-value{font-size:16px;line-height:1.55;font-weight:500;}
+  .info-block .info-value.lede{font-size:19px;font-weight:600;line-height:1.45;}
+  .software-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;}
+  .software-pill{
+    font-size:12px;font-weight:600;background:var(--black);color:var(--white);padding:5px 11px;border-radius:5px;
+  }
+  .project-gallery{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+  }
+  .project-gallery img,
+  .project-gallery .img-placeholder{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    background:#eee;
+    transition:transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .gallery-item{overflow:hidden;cursor:pointer;}
+  .gallery-item:hover img{transform:scale(1.05);}
+  .project-gallery .wide{grid-column:span 2;aspect-ratio:2/1;}
+  .project-gallery .wide img,
+  .project-gallery .wide .img-placeholder{aspect-ratio:2/1;}
+  /* pair: wide 2:1 + portrait 1:1 → stessa altezza naturale nella griglia 3 col */
+  .project-gallery .pair-wide{grid-column:span 2;aspect-ratio:2/1;}
+  .project-gallery .pair-wide img{width:100%;height:100%;object-fit:cover;aspect-ratio:2/1;}
+  .project-gallery .pair-portrait{grid-column:span 1;aspect-ratio:1/1;}
+  .project-gallery .pair-portrait img{width:100%;height:100%;object-fit:cover;aspect-ratio:1/1;}
+  .project-gallery .full{grid-column:1 / -1;aspect-ratio:16/9;}
+  .project-gallery .full img,
+  .project-gallery .full .img-placeholder{aspect-ratio:16/9;object-fit:contain;background:#f3f3f3;}
+
+  /* ---------- footer / contact ---------- */
+  .contact{
+    background:var(--black);
+    color:var(--white);
+    padding:140px clamp(20px,4vw,56px) 64px;
+  }
+  .contact h2{
+    font-family:var(--ff-display);
+    font-weight:900;
+    font-size:clamp(40px,8vw,110px);
+    text-transform:uppercase;
+    line-height:0.95;
+    letter-spacing:-0.01em;
+    margin-bottom:48px;
+  }
+  .contact-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:32px;
+    padding-top:48px;
+    border-top:1px solid #333;
+  }
+  .contact-block .label{font-size:12px;text-transform:uppercase;letter-spacing:0.08em;color:var(--mute);margin-bottom:10px;font-weight:600;}
+  .contact-block .value{font-size:clamp(17px,2vw,22px);font-weight:700;}
+  .contact-block .value a{border-bottom:1px solid transparent;transition:border-color .2s;}
+  .contact-block .value a:hover{border-color:var(--white);}
+  .foot-bottom{
+    margin-top:90px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:12px;
+    color:var(--mute);
+    flex-wrap:wrap;
+    gap:12px;
+  }
+
+  /* ---------- hero canvas trail ---------- */
+  #hero-canvas{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:0;
+  }
+  .hero > *:not(#hero-canvas){position:relative;z-index:1;}
+
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    .gallery-item:hover img{transform:none;}
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:1100px){
+    .project-index-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:860px){
+    .intro{grid-template-columns:1fr;gap:40px;padding:90px 20px;}
+    .project-index-grid{grid-template-columns:1fr;margin-top:32px;}
+    .project-grid{grid-template-columns:1fr;gap:28px;}
+    .project-photo{max-width:100%;}
+    .index-card-thumb{max-width:100%;}
+    .project-body{padding:40px 20px 56px;}
+    .project-gallery{grid-template-columns:repeat(2,1fr);}
+    .project-gallery .wide{grid-column:span 2;}
+    .project-gallery .full{grid-column:span 2;aspect-ratio:16/9;}
+    .project-gallery .full img,
+    .project-gallery .full .img-placeholder{aspect-ratio:16/9;object-fit:contain;}
+    .contact-grid{grid-template-columns:1fr;gap:36px;}
+    .contact{padding:100px 20px 48px;}
+    .hero{padding:110px 20px 48px;}
+    .hero-year{display:none;}
+    .topbar{padding:20px;}
+    .topbar nav{gap:14px;font-size:11px;}
+    .section-label{padding:36px 20px 0;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="name">Nicolò Frabetti</span>
+  <nav>
+    <a href="#work">Progetti</a>
+    <a href="#contact">Contatti</a>
+  </nav>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  <span class="hero-year">PORTFOLIO — 2026</span>
+  <div class="hero-role">Product Designer</div>
+  <h1>Nicolò<br>Frabetti</h1>
+  <p class="hero-sub">Sei progetti tra product design, light design e ricerca sui materiali — dalla ricerca formale al prototipo fisico.</p>
+  <div class="hero-meta">
+    <div>
+      <div class="label">Formazione</div>
+      <div class="value">IED Roma — Product Design</div>
+    </div>
+    <div>
+      <div class="label">Base</div>
+      <div class="value">Roma, Italia</div>
+    </div>
+    <div>
+      <div class="label">Contatto</div>
+      <div class="value">nicolofrabetti8@gmail.com</div>
+    </div>
+  </div>
+</header>
+
+<!-- INTRO / PHOTO -->
+<section class="intro reveal">
+  <div class="intro-photo">
+    <!-- Sostituisci questo blocco con: <img src="assets/foto-profilo.jpg" alt="Nicolò Frabetti"> -->
+    <div class="placeholder">Foto profilo<br>da inserire</div>
+  </div>
+  <div class="intro-text">
+    <div class="intro-eyebrow">Presentazione</div>
+    <p>Sono un <span class="accent">product designer</span> neolaureato, curioso di tecnologia e innovazione, con un approccio aperto a diverse aree del design.</p>
+    <p>Ho lavorato con aziende reali, imparando a tradurre un contesto in soluzioni concrete — credo nel valore del lavoro di squadra per ottenere risultati più solidi.</p>
+  </div>
+</section>
+
+<!-- WORK -->
+<main id="work">
+
+  <div class="section-label reveal">
+    <span class="num">INDEX</span>
+    <h2>Progetti selezionati</h2>
+  </div>
+
+  <div class="project-index-grid reveal">
+    <button class="index-card" data-target="orange-juicer" data-accent="#e8632a" aria-expanded="false" aria-controls="orange-juicer">
+      <div class="index-card-thumb"><img src="assets/juicer-cover.jpg" alt="" loading="lazy"></div>
+      <div class="index-card-meta">
+        <div>
+          <div class="index-card-num">01</div>
+          <div class="index-card-title">Orange<br>Juicer</div>
+        </div>
+        <div class="index-card-tags">
+          <span class="tag">Product Design</span>
+        </div>
+      </div>
+      <div class="index-card-toggle"><span class="plus"></span> <span class="label-default">Scopri il progetto</span><span class="label-open">Chiudi progetto</span></div>
+    </button>
+
+    <button class="index-card" data-target="axia" aria-expanded="false" aria-controls="axia">
+      <div class="index-card-thumb"><img src="assets/axia-hero.jpg" alt="" loading="lazy"></div>
+      <div class="index-card-meta">
+        <div>
+          <div class="index-card-num">02</div>
+          <div class="index-card-title">Axia</div>
+        </div>
+        <div class="index-card-tags">
+          <span class="tag">Light Design</span>
+        </div>
+      </div>
+      <div class="index-card-toggle"><span class="plus"></span> <span class="label-default">Scopri il progetto</span><span class="label-open">Chiudi progetto</span></div>
+    </button>
+
+    <button class="index-card" data-target="irregular" aria-expanded="false" aria-controls="irregular">
+      <div class="index-card-thumb"><img src="assets/irregular-hero.jpg" alt="" loading="lazy"></div>
+      <div class="index-card-meta">
+        <div>
+          <div class="index-card-num">03</div>
+          <div class="index-card-title">Irregular<br>Serie MNM</div>
+        </div>
+        <div class="index-card-tags">
+          <span class="tag">Modellistica</span>
+        </div>
+      </div>
+      <div class="index-card-toggle"><span class="plus"></span> <span class="label-default">Scopri il progetto</span><span class="label-open">Chiudi progetto</span></div>
+    </button>
+
+  <!-- PROJECT 01 — ORANGE JUICER -->
+  <article class="project" id="orange-juicer" data-project data-accent="#e8632a">
+    <div class="project-inner">
+      <div class="project-body">
+        <div class="project-head">
+          <div class="project-head-left">
+            <span class="project-index">01</span>
+            <h3 class="project-title-open">Orange Juicer</h3>
+          </div>
+          <div class="project-tags">
+            <span class="tag">Product Design</span>
+            <span class="tag">Redesign</span>
+          </div>
+        </div>
+        <div class="project-grid">
+          <img class="project-photo" src="assets/juicer-lifestyle2.jpg" alt="Spremiagrumi arancione fotografato su un piano in marmo, controluce al tramonto">
+          <div class="project-info">
+            <div class="info-block">
+              <div class="info-label">Materia d'esame</div>
+              <div class="info-value lede">Tipologia dei Materiali</div>
+            </div>
+            <div class="info-block">
+              <div class="info-label">Brief</div>
+              <div class="info-value">Semplificare e ridisegnare un oggetto in metallo, ripensandone i materiali e i meccanismi di funzionamento mantenendo l'identità del prodotto originale.</div>
+            </div>
+            <div class="info-block">
+              <div class="info-label">Approccio</div>
+              <div class="info-value">Il design originale interamente in metallo è stato scomposto e riprogettato sostituendo gran parte dei componenti con plastica stampata, riducendo peso e costi, mantenendo solo la struttura portante in metallo. Il risultato è un prodotto lavabile in lavastoviglie, con un meccanismo di spremitura più efficiente, una caraffa ad incastro con drenaggio ottimizzato e un sistema ambidestro pensato per essere usato comodamente da chiunque.</div>
+            </div>
+            <div class="info-block">
+              <div class="info-label">Software</div>
+              <div class="software-row">
+                <span class="software-pill">Rhino 3D</span>
+                <span class="software-pill">V-Ray</span>
+                <span class="software-pill">Photoshop</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="project-gallery">
+          <div class="gallery-item full"><img src="assets/juicer-redesign-comparison.jpg" alt="Composizione esplosa: confronto tra il design originale in metallo e il redesign in plastica arancione"></div>
+          <div class="gallery-item"><img src="assets/juicer-detail-filter.jpg" alt="Dettaglio del filtro conico e della caraffa arancione"></div>
+          <div class="gallery-item"><img src="assets/juicer-detail-base.jpg" alt="Dettaglio della base in metallo spazzolato"></div>
+          <div class="gallery-item"><img src="assets/juicer-detail-button.jpg" alt="Dettaglio del pulsante superiore a fungo"></div>
+        </div>
+        <button class="project-close" data-close><span class="x">×</span> Chiudi progetto</button>
+      </div>
+    </div>
+  </article>
+
+  <!-- PROJECT 02 — AXIA -->
+  <article class="project" id="axia" data-project>
+    <div class="project-inner">
+      <div class="project-body">
+        <div class="project-head">
+          <div class="project-head-left">
+            <span class="project-index">02</span>
+            <h3 class="project-title-open">Axia</h3>
+          </div>
+          <div class="project-tags">
+            <span class="tag">Light Design</span>
+            <span class="tag">Giovannozzi Marmi</span>
+          </div>
+        </div>
+        <div class="project-grid">
+          <img class="project-photo" src="assets/axia-functionality.jpg" alt="Dettaglio funzionale della lampada Axia: dimmer e sostegno strutturale">
+          <div class="project-info">
+            <div class="info-block">
+              <div class="info-label">Materia d'esame</div>
+              <div class="info-value lede">Light Design</div>
+            </div>
+            <div class="info-block">
+              <div class="info-label">Brief</div>
+              <div class="info-value">Progettare una lampada realizzata in marmo o onice, in collaborazione con un'azienda lapidea.</div>
+            </div>
+            <div class="info-block">
+              <div class="info-label">Approccio</div>
+              <div class="info-value">Axia nasce da uno studio scultoreo sul marmo nero: due volumi conici contrapposti che si bilanciano in equilibrio visivo. La fascia con dimmer integrato permette di regolare l'intensità luminosa, mentre il sostegno strutturale in metallo nasconde i componenti tecnici lasciando la pietra protagonista.</div>
+            </div>
+            <div class="info-block">
+              <div class="info-label">Software</div>
+              <div class="software-row">
+                <span class="software-pill">Rhino 3D</span>
+                <span class="software-pill">V-Ray</span>
+                <span class="software-pill">Photoshop</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="project-gallery">
+          <div class="gallery-item"><img src="assets/axia-ideation.jpg" alt="Schizzi di ideazione della lampada Axia"></div>
+          <div class="gallery-item wide"><img src="assets/axia-lifestyle.jpg" alt="Lampada Axia ambientata in un interno"></div>
+        </div>
+        <button class="project-close" data-close><span class="x">×</span> Chiudi progetto</button>
+      </div>
+    </div>
+  </article>
+
+  <!-- PROJECT 03 — IRREGULAR / SERIE MNM -->
+  <article class="project" id="irregular" data-project>
+    <div class="project-inner">
+      <div class="project-body">
+        <div class="project-head">
+          <div class="project-head-left">
+            <span class="project-index">03</span>
+            <h3 class="project-title-open">Irregular — Serie MNM</h3>
+          </div>
+          <div class="project-tags">
+            <span class="tag">Modellistica</span>
+            <span class="tag">CNR</span>
+          </div>
+        </div>
+        <div class="project-grid">
+          <img class="project-photo" src="assets/irregular-roomshot2.jpg" alt="Vista d'insieme degli ambienti colorati pensati per la serie MNM">
+          <div class="project-info">
+            <div class="info-block">
+              <div class="info-label">Materia d'esame</div>
+              <div class="info-value lede">Modellistica 2</div>
+            </div>
+            <div class="info-block">
+              <div class="info-label">Brief</div>
+              <div class="info-value">Progettare una serie di arredi antisismici, in collaborazione con il Consiglio Nazionale delle Ricerche.</div>
+            </div>
+            <div class="info-block">
+              <div class="info-label">Approccio</div>
+              <div class="info-value">Serie MNM nasce per offrire protezione all'interno di scuole e biblioteche durante un evento sismico. Le forme morbide e irregolari assecondano i nuovi modi di sedersi e studiare, mentre la struttura è stata sviluppata e validata attraverso modelli fisici in scala, realizzati e rifiniti a mano in laboratorio.</div>
+            </div>
+            <div class="info-block">
+              <div class="info-label">Software</div>
+              <div class="software-row">
+                <span class="software-pill">Rhino 3D</span>
+                <span class="software-pill">V-Ray</span>
+                <span class="software-pill">Photoshop</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="project-gallery">
+          <div class="gallery-item"><img src="assets/irregular-roomshot1.jpg" alt="Ambientazione colorata della serie MNM"></div>
+          <div class="gallery-item"><img src="assets/irregular-finalmodels.jpg" alt="Modelli fisici finali in scala dei tavolini"></div>
+          <div class="gallery-item wide"><img src="assets/irregular-process-hands.jpg" alt="Lavorazione manuale dei modelli in legno in laboratorio"></div>
+        </div>
+        <button class="project-close" data-close><span class="x">×</span> Chiudi progetto</button>
+      </div>
+    </div>
+  </article>
+
+    <button class="index-card" data-target="cloe" data-accent="#e0256e" aria-expanded="false" aria-controls="cloe">
+      <div class="index-card-thumb"><img src="assets/cloe-cover.jpg" alt="" loading="lazy"></div>
+      <div class="index-card-meta">
+        <div>
+          <div class="index-card-num">04</div>
+          <div class="index-card-title">Cloe</div>
+        </div>
+        <div class="index-card-tags">
+          <span class="tag">Innovation Design</span>
+          <span class="tag">Service Design</span>
+        </div>
+      </div>
+      <div class="index-card-toggle"><span class="plus"></span> <span class="label-default">Scopri il progetto</span><span class="label-open">Chiudi progetto</span></div>
+    </button>
+
+    <button class="index-card" data-target="arbor" data-accent="#7a5236" aria-expanded="false" aria-controls="arbor">
+      <div class="index-card-thumb"><img src="assets/arbor-cover.jpg" alt="" loading="lazy"></div>
+      <div class="index-card-meta">
+        <div>
+          <div class="index-card-num">05</div>
+          <div class="index-card-title">Arbor</div>
+        </div>
+        <div class="index-card-tags">
+          <span class="tag">Furniture Design</span>
+        </div>
+      </div>
+      <div class="index-card-toggle"><span class="plus"></span> <span class="label-default">Scopri il progetto</span><span class="label-open">Chiudi progetto</span></div>
+    </button>
+
+    <button class="index-card" data-target="voce" aria-expanded="false" aria-controls="voce">
+      <div class="index-card-thumb"><div class="img-placeholder">Copertina<br>da inserire</div></div>
+      <div class="index-card-meta">
+        <div>
+          <div class="index-card-num">06</div>
+          <div class="index-card-title">Voce</div>
+        </div>
+        <div class="index-card-tags">
+          <span class="tag">Innovation Design</span>
+        </div>
+      </div>
+      <div class="index-card-toggle"><span class="plus"></span> <span class="label-default">Scopri il progetto</span><span class="label-open">Chiudi progetto</span></div>
+    </button>
+
+  <!-- PROJECT 04 — CLOE -->
+  <article class="project" id="cloe" data-project data-accent="#e0256e">
+    <div class="project-inner">
+      <div class="project-body">
+        <div class="project-head">
+          <div class="project-head-left">
+            <span class="project-index">04</span>
+            <h3 class="project-title-open">Cloe</h3>
+          </div>
+          <div class="project-tags">
+            <span class="tag">Innovation Design</span>
+            <span class="tag">Service Design</span>
+          </div>
+        </div>
+        <div class="project-grid">
+          <img class="project-photo" src="assets/cloe-product.jpg" alt="Cloe, smart plug con interfaccia rotante in rosa fucsia, ambientata in cucina">
+          <div class="project-info">
+            <div class="info-block">
+              <div class="info-label">Materia d'esame</div>
+              <div class="info-value lede">Innovation Design</div>
+            </div>
+            <div class="info-block">
+              <div class="info-label">Brief</div>
+              <div class="info-value">Redesign della Smart Plug 2.0 in collaborazione con Enel: ripensare forma, materiali ed esperienza utente, sviluppare un packaging innovativo e sostenibile (estendibile alla versione 1.0) e progettare una proposta di comunicazione in-store.</div>
+            </div>
+            <div class="info-block">
+              <div class="info-label">Approccio</div>
+              <div class="info-value">Abbiamo progettato una presa che comunica visivamente il proprio stato attraverso la luce, semplificando la lettura delle funzioni sulla base delle esigenze reali degli utenti. Il packaging, in plastica riciclabile, si illumina al buio richiamando il concetto Enel di "Luce" e diventa esso stesso un oggetto esperienziale. L'applicazione è stata riprogettata semplificando l'interfaccia e riprendendo nelle icone le forme del prodotto fisico.</div>
+            </div>
+            <div class="info-block">
+              <div class="info-label">Software</div>
+              <div class="software-row">
+                <span class="software-pill">Figma</span>
+                <span class="software-pill">Rhino 3D</span>
+                <span class="software-pill">Photoshop</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="project-gallery">
+          <div class="gallery-item pair-wide"><img src="assets/cloe-g3.jpg" alt="Cloe montata su una presa multipla, ambiente rosa sera"></div>
+          <div class="gallery-item pair-portrait"><img src="assets/cloe-g5.jpg" alt="Packaging Cloe che si illumina al buio vicino al contatore Enel"></div>
+          <div class="gallery-item pair-wide"><img src="assets/cloe-g4.jpg" alt="Packaging Cloe in plastica riciclabile sul davanzale di una finestra"></div>
+          <div class="gallery-item pair-portrait" style="background:#fff;"><img src="assets/cloe-g6.jpg" alt="App Cloe su smartphone: consumo in tempo reale 1500W" style="object-fit:contain;background:#fff;"></div>
+        </div>
+        <button class="project-close" data-close><span class="x">×</span> Chiudi progetto</button>
+      </div>
+    </div>
+  </article>
+
+  <!-- PROJECT 05 — ARBOR (placeholder, da completare) -->
+  <article class="project" id="arbor" data-project data-accent="#7a5236">
+    <div class="project-inner">
+      <div class="project-body">
+        <div class="project-head">
+          <div class="project-head-left">
+            <span class="project-index">05</span>
+            <h3 class="project-title-open">Arbor</h3>
+          </div>
+          <div class="project-tags">
+            <span class="tag">Furniture Design</span>
+            <span class="tag">Artisan</span>
+          </div>
+        </div>
+        <div class="project-grid">
+          <img class="project-photo" src="assets/arbor-product.jpg" alt="Libreria Arbor in legno con mensole sospese, vista frontale">
+          <div class="project-info">
+            <div class="info-block">
+              <div class="info-label">Materia d'esame</div>
+              <div class="info-value lede">Forniture Design</div>
+            </div>
+            <div class="info-block">
+              <div class="info-label">Brief</div>
+              <div class="info-value">Progettare una libreria su richiesta dell'azienda Artisan, rispettando le linee guida del brand ma lasciando piena libertà formale al designer nello sviluppo del concept.</div>
+            </div>
+            <div class="info-block">
+              <div class="info-label">Approccio</div>
+              <div class="info-value">Il progetto nasce dall'osservazione della forma dell'albero: la struttura portante si dirama come un tronco che si apre in rami, trasformando un gesto naturale in un sistema di mensole funzionale. Pur muovendosi entro i vincoli tecnici e di linguaggio richiesti da Artisan, la libreria conserva un'identità scultorea e organica, pensata per integrarsi sia in ambienti domestici che contract.</div>
+            </div>
+            <div class="info-block">
+              <div class="info-label">Software</div>
+              <div class="software-row">
+                <span class="software-pill">Rhino 3D</span>
+                <span class="software-pill">V-Ray</span>
+                <span class="software-pill">Photoshop</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="project-gallery">
+          <div class="gallery-item"><img src="assets/arbor-detail-office.jpg" alt="Libreria Arbor ambientata in uno studio minimale"></div>
+          <div class="gallery-item wide"><img src="assets/arbor-detail-shelves-row.jpg" alt="Dettaglio in sequenza delle mensole sospese" style="object-fit:contain;background:#f3f3f3;"></div>
+          <div class="gallery-item"><img src="assets/arbor-detail-joint.jpg" alt="Dettaglio della mensola e dell'incastro con il montante"></div>
+          <div class="gallery-item"><img src="assets/arbor-detail-base.jpg" alt="Dettaglio della base in legno con innesto metallico"></div>
+          <div class="gallery-item"><img src="assets/arbor-detail-wallmount.jpg" alt="Dettaglio dell'aggancio a parete in metallo"></div>
+          <div class="gallery-item full"><img src="assets/arbor-detail-shelf-profile.jpg" alt="Profilo ravvicinato di una mensola in legno"></div>
+        </div>
+        <button class="project-close" data-close><span class="x">×</span> Chiudi progetto</button>
+      </div>
+    </div>
+  </article>
+
+  <!-- PROJECT 06 — VOCE (placeholder, da completare) -->
+  <article class="project" id="voce" data-project>
+    <div class="project-inner">
+      <div class="project-body">
+        <div class="project-head">
+          <div class="project-head-left">
+            <span class="project-index">06</span>
+            <h3 class="project-title-open">Voce</h3>
+          </div>
+          <div class="project-tags">
+            <span class="tag">Innovation Design</span>
+          </div>
+        </div>
+        <div class="project-grid">
+          <div class="project-photo img-placeholder">Foto prodotto<br>da inserire</div>
+          <div class="project-info">
+            <div class="info-block">
+              <div class="info-label">Materia d'esame</div>
+              <div class="info-value lede text-placeholder">Da compilare</div>
+            </div>
+            <div class="info-block">
+              <div class="info-label">Brief</div>
+              <div class="info-value text-placeholder">Inserisci qui il brief del progetto: contesto, obiettivo e vincoli di partenza.</div>
+            </div>
+            <div class="info-block">
+              <div class="info-label">Approccio</div>
+              <div class="info-value text-placeholder">Inserisci qui la descrizione dell'approccio e della soluzione sviluppata.</div>
+            </div>
+            <div class="info-block">
+              <div class="info-label">Software</div>
+              <div class="software-row">
+                <span class="software-pill text-placeholder" style="background:#ccc;color:#666;">Da definire</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="project-gallery">
+          <div class="gallery-item wide"><div class="img-placeholder">Immagine<br>da inserire</div></div>
+          <div class="gallery-item"><div class="img-placeholder">Immagine<br>da inserire</div></div>
+          <div class="gallery-item"><div class="img-placeholder">Immagine<br>da inserire</div></div>
+        </div>
+        <button class="project-close" data-close><span class="x">×</span> Chiudi progetto</button>
+      </div>
+    </div>
+  </article>
+
+  </div>
+
+</main>
+
+<!-- CONTACT -->
+<footer class="contact" id="contact">
+  <h2>Parliamo del<br>tuo prossimo<br>progetto.</h2>
+  <div class="contact-grid">
+    <div class="contact-block">
+      <div class="label">Email</div>
+      <div class="value"><a href="mailto:nicolofrabetti8@gmail.com">nicolofrabetti8@gmail.com</a></div>
+    </div>
+    <div class="contact-block">
+      <div class="label">Telefono</div>
+      <div class="value"><a href="tel:+393444863366">+39 344 486 3366</a></div>
+    </div>
+    <div class="contact-block">
+      <div class="label">Instagram</div>
+      <div class="value"><a href="https://instagram.com/n.frabetti8" target="_blank" rel="noopener">@n.frabetti8</a></div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>Nicolò Frabetti — Product Designer, Roma</span>
+    <span>Portfolio 2026</span>
+  </div>
+</footer>
+
+<script>
+  // utility: darken a hex color by a percentage (0-1)
+  function darkenHex(hex, amount){
+    const h = hex.replace('#','');
+    const num = parseInt(h.length === 3 ? h.split('').map(c=>c+c).join('') : h, 16);
+    let r = (num >> 16) & 255, g = (num >> 8) & 255, b = num & 255;
+    r = Math.max(0, Math.round(r * (1 - amount)));
+    g = Math.max(0, Math.round(g * (1 - amount)));
+    b = Math.max(0, Math.round(b * (1 - amount)));
+    return `rgb(${r}, ${g}, ${b})`;
+  }
+
+  // apply accent + darker accent variant to every element carrying data-accent
+  document.querySelectorAll('[data-accent]').forEach(el=>{
+    const accent = el.getAttribute('data-accent');
+    el.style.setProperty('--accent', accent);
+    el.style.setProperty('--accent-dark', accent);
+  });
+
+  // reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        revealObs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.08});
+  reveals.forEach(i=>revealObs.observe(i));
+
+  // expandable projects
+  const cards = document.querySelectorAll('.index-card');
+  const projects = document.querySelectorAll('[data-project]');
+
+  function closeAll(){
+    projects.forEach(p => p.classList.remove('is-open'));
+    cards.forEach(c => { c.classList.remove('is-open'); c.setAttribute('aria-expanded','false'); });
+  }
+
+  function openProject(id, sourceImg){
+    const target = document.getElementById(id);
+    if(!target) return;
+    const alreadyOpen = target.classList.contains('is-open');
+    closeAll();
+    if(alreadyOpen) return; // toggled closed
+
+    const card = document.querySelector(`.index-card[data-target="${id}"]`);
+    target.classList.add('is-open');
+    if(card){
+      card.classList.add('is-open');
+      card.setAttribute('aria-expanded','true');
+    }
+
+    setTimeout(()=>{
+      target.scrollIntoView({behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'start'});
+    }, 80);
+  }
+
+  cards.forEach(card=>{
+    card.addEventListener('click', ()=>{
+      const id = card.getAttribute('data-target');
+      const img = card.querySelector('.index-card-thumb img');
+      openProject(id, img);
+    });
+  });
+
+  document.querySelectorAll('[data-close]').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      const project = e.target.closest('[data-project]');
+      closeAll();
+      if(project){
+        const card = document.querySelector(`.index-card[data-target="${project.id}"]`);
+        if(card) card.scrollIntoView({behavior:'smooth', block:'center'});
+      }
+    });
+  });
+
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape') closeAll();
+  });
+</script>
+
+<script>
+// ── HERO CANVAS TRAIL ──────────────────────────────────────────────
+(function(){
+  const hero = document.querySelector('.hero');
+  const canvas = document.getElementById('hero-canvas');
+  if(!canvas || !hero) return;
+  const ctx = canvas.getContext('2d');
+
+  let W, H;
+  function resize(){
+    W = canvas.width  = hero.offsetWidth;
+    H = canvas.height = hero.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Trail points: each is {x, y, hue, age}
+  const points = [];
+  const MAX_POINTS = 120;
+  const TRAIL_WIDTH = 18;
+  let hue = 0;
+  let mouse = null;
+
+  hero.addEventListener('mousemove', e => {
+    const rect = hero.getBoundingClientRect();
+    mouse = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    hue = (hue + 1.8) % 360;
+    points.push({ x: mouse.x, y: mouse.y, hue, age: 0 });
+    if(points.length > MAX_POINTS) points.shift();
+  });
+
+  hero.addEventListener('mouseleave', () => { mouse = null; });
+
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+
+    if(points.length < 2){ requestAnimationFrame(draw); return; }
+
+    // age all points
+    for(let i = 0; i < points.length; i++) points[i].age++;
+
+    // remove fully faded
+    while(points.length && points[0].age > MAX_POINTS) points.shift();
+
+    if(points.length < 2){ requestAnimationFrame(draw); return; }
+
+    // draw segments from oldest to newest
+    for(let i = 1; i < points.length; i++){
+      const p0 = points[i-1];
+      const p1 = points[i];
+      const t = i / points.length;        // 0=old → 1=new
+      const alpha = t * t * 0.85;         // fade older segments
+      const width = TRAIL_WIDTH * t;      // taper toward tail
+
+      ctx.beginPath();
+      ctx.moveTo(p0.x, p0.y);
+      ctx.lineTo(p1.x, p1.y);
+      ctx.strokeStyle = `hsla(${p1.hue}, 90%, 60%, ${alpha})`;
+      ctx.lineWidth = width;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.stroke();
+    }
+
+    // glow dot at cursor tip
+    if(mouse && points.length){
+      const last = points[points.length-1];
+      const grad = ctx.createRadialGradient(last.x, last.y, 0, last.x, last.y, TRAIL_WIDTH*1.6);
+      grad.addColorStop(0, `hsla(${last.hue}, 95%, 70%, 0.6)`);
+      grad.addColorStop(1, `hsla(${last.hue}, 95%, 70%, 0)`);
+      ctx.beginPath();
+      ctx.arc(last.x, last.y, TRAIL_WIDTH*1.6, 0, Math.PI*2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+    }
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</html>
