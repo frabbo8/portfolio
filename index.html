@@ -114,14 +114,15 @@
 
   /* ---------- intro strip ---------- */
   .intro{
-    padding:120px clamp(20px,4vw,56px);
+    padding:80px clamp(20px,4vw,56px);
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:60px;
+    grid-template-columns:0.55fr 1fr;
+    gap:56px;
     border-bottom:1px solid var(--line-light);
   }
   .intro-photo{
     aspect-ratio:4/5;
+    max-width:280px;
     background:#eee;
     border:1px solid var(--line-light);
     display:flex;
@@ -169,10 +170,10 @@
     margin-bottom:20px;
   }
   .intro-text p{
-    font-size:clamp(22px,2.6vw,32px);
-    line-height:1.35;
-    font-weight:600;
-    letter-spacing:-0.01em;
+    font-size:clamp(15px,1.6vw,20px);
+    line-height:1.55;
+    font-weight:500;
+    letter-spacing:-0.005em;
   }
   .intro-text p + p{margin-top:24px;}
   .intro-text .accent{font-family:var(--ff-display);font-weight:800;}
