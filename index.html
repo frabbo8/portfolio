@@ -459,6 +459,19 @@
     object-fit:cover;
   }
 
+  /* ---------- proto section ---------- */
+  .proto-section{margin-top:48px;}
+  .proto-label{
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--mute);
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:1px solid var(--line-light);
+  }
+
   /* ---------- footer / contact ---------- */
   .contact{
     background:var(--black);
@@ -818,20 +831,6 @@
       <div class="index-card-toggle"><span class="plus"></span> <span class="label-default">Scopri il progetto</span><span class="label-open">Chiudi progetto</span></div>
     </button>
 
-    <button class="index-card" data-target="voce" aria-expanded="false" aria-controls="voce">
-      <div class="index-card-thumb"><div class="img-placeholder">Copertina<br>da inserire</div></div>
-      <div class="index-card-meta">
-        <div>
-          <div class="index-card-num">06</div>
-          <div class="index-card-title">Voce</div>
-        </div>
-        <div class="index-card-tags">
-          <span class="tag">Innovation Design</span>
-        </div>
-      </div>
-      <div class="index-card-toggle"><span class="plus"></span> <span class="label-default">Scopri il progetto</span><span class="label-open">Chiudi progetto</span></div>
-    </button>
-
   <!-- PROJECT 04 — CLOE -->
   <article class="project" id="cloe" data-project data-accent="#e0256e">
     <div class="project-inner">
@@ -876,6 +875,14 @@
           <div class="gallery-item pair-portrait"><img src="assets/cloe-g5.jpg" alt="Packaging Cloe che si illumina al buio vicino al contatore Enel"></div>
           <div class="gallery-item pair-wide"><img src="assets/cloe-g4.jpg" alt="Packaging Cloe in plastica riciclabile sul davanzale di una finestra"></div>
           <div class="gallery-item pair-portrait" style="background:#fff;"><img src="assets/cloe-g6.jpg" alt="App Cloe su smartphone: consumo in tempo reale 1500W" style="object-fit:contain;background:#fff;"></div>
+        </div>
+        <div class="proto-section">
+          <div class="proto-label">Prototipi</div>
+          <div class="project-gallery">
+            <div class="gallery-item"><img src="assets/cloe-proto1.jpg" alt="Tre prototipi fisici di Cloe in arancione, rosa e blu"></div>
+            <div class="gallery-item"><img src="assets/cloe-proto3.jpg" alt="Prototipo Cloe illuminato al buio, luce rosa intensa"></div>
+            <div class="gallery-item"><img src="assets/cloe-proto2.jpg" alt="Prototipo Cloe montato su display espositivo con logo"></div>
+          </div>
         </div>
         <button class="project-close" data-close><span class="x">×</span> Chiudi progetto</button>
       </div>
@@ -935,50 +942,7 @@
   </article>
 
   <!-- PROJECT 06 — VOCE (placeholder, da completare) -->
-  <article class="project" id="voce" data-project>
-    <div class="project-inner">
-      <div class="project-body">
-        <div class="project-head">
-          <div class="project-head-left">
-            <span class="project-index">06</span>
-            <h3 class="project-title-open">Voce</h3>
-          </div>
-          <div class="project-tags">
-            <span class="tag">Innovation Design</span>
-          </div>
-        </div>
-        <div class="project-grid">
-          <div class="project-photo img-placeholder">Foto prodotto<br>da inserire</div>
-          <div class="project-info">
-            <div class="info-block">
-              <div class="info-label">Materia d'esame</div>
-              <div class="info-value lede text-placeholder">Da compilare</div>
-            </div>
-            <div class="info-block">
-              <div class="info-label">Brief</div>
-              <div class="info-value text-placeholder">Inserisci qui il brief del progetto: contesto, obiettivo e vincoli di partenza.</div>
-            </div>
-            <div class="info-block">
-              <div class="info-label">Approccio</div>
-              <div class="info-value text-placeholder">Inserisci qui la descrizione dell'approccio e della soluzione sviluppata.</div>
-            </div>
-            <div class="info-block">
-              <div class="info-label">Software</div>
-              <div class="software-row">
-                <span class="software-pill text-placeholder" style="background:#ccc;color:#666;">Da definire</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="project-gallery">
-          <div class="gallery-item wide"><div class="img-placeholder">Immagine<br>da inserire</div></div>
-          <div class="gallery-item"><div class="img-placeholder">Immagine<br>da inserire</div></div>
-          <div class="gallery-item"><div class="img-placeholder">Immagine<br>da inserire</div></div>
-        </div>
-        <button class="project-close" data-close><span class="x">×</span> Chiudi progetto</button>
-      </div>
-    </div>
-  </article>
+
 
   </div>
 
