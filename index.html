@@ -478,6 +478,8 @@
     background:var(--black);
     color:var(--white);
     padding:140px clamp(20px,4vw,56px) 64px;
+    position:relative;
+    overflow:hidden;
   }
   .contact h2{
     font-family:var(--ff-display);
@@ -1042,103 +1044,83 @@
 </script>
 
 <script>
-// ── SMOOTH TRAIL — hero + contact ──────────────────────────────────
 (function(){
+  const LIFE    = 800;   // ms prima che un punto svanisca
+  const MAX_PTS = 60;    // punti massimi in coda
+
   function makeTrail(container, canvasId){
     const canvas = document.getElementById(canvasId);
     if(!canvas || !container) return;
     const ctx = canvas.getContext('2d');
-
     let W, H;
+
     function resize(){
       W = canvas.width  = container.offsetWidth;
       H = canvas.height = container.offsetHeight;
     }
     resize();
-    window.addEventListener('resize', resize);
+    new ResizeObserver(resize).observe(container);
 
-    const pts   = [];       // {x,y,hue}
-    const MAX   = 80;       // punti massimi in coda
-    let hue     = Math.random()*360;
-    let active  = false;
-    let fadeAlpha = 1;      // moltiplicatore globale per fade-out dopo mouseleave
+    let pts = [];  // {x, y, hue, t} — t = timestamp ms
+    let hue = Math.random() * 360;
 
     container.addEventListener('mousemove', e => {
       const r = container.getBoundingClientRect();
-      const x = e.clientX - r.left;
-      const y = e.clientY - r.top;
-      hue = (hue + 1.4) % 360;
-      pts.push({x, y, hue});
-      if(pts.length > MAX) pts.shift();
-      active = true;
-      fadeAlpha = 1;
+      pts.push({ x: e.clientX - r.left, y: e.clientY - r.top, hue, t: performance.now() });
+      hue = (hue + 1.5) % 360;
+      if(pts.length > MAX_PTS) pts.shift();
     });
 
-    container.addEventListener('mouseleave', () => { active = false; });
-
-    // Catmull-Rom → disegna curva liscia attraverso i punti
-    function drawCurve(){
-      if(pts.length < 3) return;
-      const n = pts.length;
-
-      for(let i = 1; i < n - 1; i++){
-        const p0 = pts[Math.max(0, i-1)];
-        const p1 = pts[i];
-        const p2 = pts[Math.min(n-1, i+1)];
-        const p3 = pts[Math.min(n-1, i+2)];
-
-        const t  = i / n;                      // 0=coda → 1=punta
-        const alpha = Math.pow(t, 1.6) * fadeAlpha * 0.9;
-        const width = 3 + 10 * t;              // da 3 a 13px
-
-        // punto di controllo Catmull-Rom
-        const cpx1 = p1.x + (p2.x - p0.x) / 6;
-        const cpy1 = p1.y + (p2.y - p0.y) / 6;
-        const cpx2 = p2.x - (p3.x - p1.x) / 6;
-        const cpy2 = p2.y - (p3.y - p1.y) / 6;
-
-        ctx.beginPath();
-        ctx.moveTo(p1.x, p1.y);
-        ctx.bezierCurveTo(cpx1, cpy1, cpx2, cpy2, p2.x, p2.y);
-        ctx.strokeStyle = `hsla(${p1.hue}, 90%, 62%, ${alpha})`;
-        ctx.lineWidth   = width;
-        ctx.lineCap     = 'round';
-        ctx.lineJoin    = 'round';
-        ctx.stroke();
-      }
-    }
-
-    function loop(){
+    function draw(){
       ctx.clearRect(0, 0, W, H);
 
-      if(!active && pts.length){
-        // fade out dolce dopo mouseleave
-        fadeAlpha *= 0.92;
-        pts.shift();
-        if(fadeAlpha < 0.02) { pts.length = 0; fadeAlpha = 1; }
-      }
+      const now = performance.now();
+      // rimuovi punti scaduti
+      pts = pts.filter(p => now - p.t < LIFE);
 
       if(pts.length >= 3){
-        drawCurve();
+        // disegna curva liscia segmento per segmento con quadraticCurve
+        for(let i = 1; i < pts.length - 1; i++){
+          const p0 = pts[i - 1];
+          const p1 = pts[i];
+          const p2 = pts[i + 1];
+          const age   = (now - p1.t) / LIFE;       // 0=nuovo 1=vecchio
+          const alpha = Math.pow(1 - age, 2) * 0.9; // fade quadratico
+          const width = 2 + 10 * (1 - age);         // più spesso quando è nuovo
 
-        // glow morbido alla punta
-        const last = pts[pts.length-1];
-        const r = 18;
-        const g = ctx.createRadialGradient(last.x, last.y, 0, last.x, last.y, r);
-        g.addColorStop(0, `hsla(${last.hue}, 95%, 72%, ${0.7 * fadeAlpha})`);
-        g.addColorStop(1, `hsla(${last.hue}, 95%, 72%, 0)`);
-        ctx.beginPath();
-        ctx.arc(last.x, last.y, r, 0, Math.PI*2);
-        ctx.fillStyle = g;
-        ctx.fill();
+          const mx = (p1.x + p2.x) / 2;
+          const my = (p1.y + p2.y) / 2;
+
+          ctx.beginPath();
+          ctx.moveTo((p0.x + p1.x) / 2, (p0.y + p1.y) / 2);
+          ctx.quadraticCurveTo(p1.x, p1.y, mx, my);
+          ctx.strokeStyle = `hsla(${p1.hue}, 90%, 62%, ${alpha})`;
+          ctx.lineWidth   = width;
+          ctx.lineCap     = 'round';
+          ctx.lineJoin    = 'round';
+          ctx.stroke();
+        }
+
+        // glow alla punta
+        const last = pts[pts.length - 1];
+        const lastAge = (now - last.t) / LIFE;
+        if(lastAge < 0.3){
+          const gAlpha = (1 - lastAge / 0.3) * 0.65;
+          const g = ctx.createRadialGradient(last.x, last.y, 0, last.x, last.y, 20);
+          g.addColorStop(0, `hsla(${last.hue}, 95%, 72%, ${gAlpha})`);
+          g.addColorStop(1, `hsla(${last.hue}, 95%, 72%, 0)`);
+          ctx.beginPath();
+          ctx.arc(last.x, last.y, 20, 0, Math.PI * 2);
+          ctx.fillStyle = g;
+          ctx.fill();
+        }
       }
 
-      requestAnimationFrame(loop);
+      requestAnimationFrame(draw);
     }
-    loop();
+    draw();
   }
 
-  // Applica sia all'hero che al footer
   makeTrail(document.querySelector('.hero'),    'hero-canvas');
   makeTrail(document.querySelector('.contact'), 'contact-canvas');
 })();
