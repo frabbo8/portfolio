@@ -1042,84 +1042,105 @@
 </script>
 
 <script>
-// ── HERO CANVAS TRAIL ──────────────────────────────────────────────
+// ── SMOOTH TRAIL — hero + contact ──────────────────────────────────
 (function(){
-  const hero = document.querySelector('.hero');
-  const canvas = document.getElementById('hero-canvas');
-  if(!canvas || !hero) return;
-  const ctx = canvas.getContext('2d');
+  function makeTrail(container, canvasId){
+    const canvas = document.getElementById(canvasId);
+    if(!canvas || !container) return;
+    const ctx = canvas.getContext('2d');
 
-  let W, H;
-  function resize(){
-    W = canvas.width  = hero.offsetWidth;
-    H = canvas.height = hero.offsetHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
+    let W, H;
+    function resize(){
+      W = canvas.width  = container.offsetWidth;
+      H = canvas.height = container.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
 
-  // Trail points: each is {x, y, hue, age}
-  const points = [];
-  const MAX_POINTS = 120;
-  const TRAIL_WIDTH = 18;
-  let hue = 0;
-  let mouse = null;
+    const pts   = [];       // {x,y,hue}
+    const MAX   = 80;       // punti massimi in coda
+    let hue     = Math.random()*360;
+    let active  = false;
+    let fadeAlpha = 1;      // moltiplicatore globale per fade-out dopo mouseleave
 
-  hero.addEventListener('mousemove', e => {
-    const rect = hero.getBoundingClientRect();
-    mouse = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-    hue = (hue + 1.8) % 360;
-    points.push({ x: mouse.x, y: mouse.y, hue, age: 0 });
-    if(points.length > MAX_POINTS) points.shift();
-  });
+    container.addEventListener('mousemove', e => {
+      const r = container.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+      hue = (hue + 1.4) % 360;
+      pts.push({x, y, hue});
+      if(pts.length > MAX) pts.shift();
+      active = true;
+      fadeAlpha = 1;
+    });
 
-  hero.addEventListener('mouseleave', () => { mouse = null; });
+    container.addEventListener('mouseleave', () => { active = false; });
 
-  function draw(){
-    ctx.clearRect(0, 0, W, H);
+    // Catmull-Rom → disegna curva liscia attraverso i punti
+    function drawCurve(){
+      if(pts.length < 3) return;
+      const n = pts.length;
 
-    if(points.length < 2){ requestAnimationFrame(draw); return; }
+      for(let i = 1; i < n - 1; i++){
+        const p0 = pts[Math.max(0, i-1)];
+        const p1 = pts[i];
+        const p2 = pts[Math.min(n-1, i+1)];
+        const p3 = pts[Math.min(n-1, i+2)];
 
-    // age all points
-    for(let i = 0; i < points.length; i++) points[i].age++;
+        const t  = i / n;                      // 0=coda → 1=punta
+        const alpha = Math.pow(t, 1.6) * fadeAlpha * 0.9;
+        const width = 3 + 10 * t;              // da 3 a 13px
 
-    // remove fully faded
-    while(points.length && points[0].age > MAX_POINTS) points.shift();
+        // punto di controllo Catmull-Rom
+        const cpx1 = p1.x + (p2.x - p0.x) / 6;
+        const cpy1 = p1.y + (p2.y - p0.y) / 6;
+        const cpx2 = p2.x - (p3.x - p1.x) / 6;
+        const cpy2 = p2.y - (p3.y - p1.y) / 6;
 
-    if(points.length < 2){ requestAnimationFrame(draw); return; }
-
-    // draw segments from oldest to newest
-    for(let i = 1; i < points.length; i++){
-      const p0 = points[i-1];
-      const p1 = points[i];
-      const t = i / points.length;        // 0=old → 1=new
-      const alpha = t * t * 0.85;         // fade older segments
-      const width = TRAIL_WIDTH * t;      // taper toward tail
-
-      ctx.beginPath();
-      ctx.moveTo(p0.x, p0.y);
-      ctx.lineTo(p1.x, p1.y);
-      ctx.strokeStyle = `hsla(${p1.hue}, 90%, 60%, ${alpha})`;
-      ctx.lineWidth = width;
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-      ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.bezierCurveTo(cpx1, cpy1, cpx2, cpy2, p2.x, p2.y);
+        ctx.strokeStyle = `hsla(${p1.hue}, 90%, 62%, ${alpha})`;
+        ctx.lineWidth   = width;
+        ctx.lineCap     = 'round';
+        ctx.lineJoin    = 'round';
+        ctx.stroke();
+      }
     }
 
-    // glow dot at cursor tip
-    if(mouse && points.length){
-      const last = points[points.length-1];
-      const grad = ctx.createRadialGradient(last.x, last.y, 0, last.x, last.y, TRAIL_WIDTH*1.6);
-      grad.addColorStop(0, `hsla(${last.hue}, 95%, 70%, 0.6)`);
-      grad.addColorStop(1, `hsla(${last.hue}, 95%, 70%, 0)`);
-      ctx.beginPath();
-      ctx.arc(last.x, last.y, TRAIL_WIDTH*1.6, 0, Math.PI*2);
-      ctx.fillStyle = grad;
-      ctx.fill();
-    }
+    function loop(){
+      ctx.clearRect(0, 0, W, H);
 
-    requestAnimationFrame(draw);
+      if(!active && pts.length){
+        // fade out dolce dopo mouseleave
+        fadeAlpha *= 0.92;
+        pts.shift();
+        if(fadeAlpha < 0.02) { pts.length = 0; fadeAlpha = 1; }
+      }
+
+      if(pts.length >= 3){
+        drawCurve();
+
+        // glow morbido alla punta
+        const last = pts[pts.length-1];
+        const r = 18;
+        const g = ctx.createRadialGradient(last.x, last.y, 0, last.x, last.y, r);
+        g.addColorStop(0, `hsla(${last.hue}, 95%, 72%, ${0.7 * fadeAlpha})`);
+        g.addColorStop(1, `hsla(${last.hue}, 95%, 72%, 0)`);
+        ctx.beginPath();
+        ctx.arc(last.x, last.y, r, 0, Math.PI*2);
+        ctx.fillStyle = g;
+        ctx.fill();
+      }
+
+      requestAnimationFrame(loop);
+    }
+    loop();
   }
-  draw();
+
+  // Applica sia all'hero che al footer
+  makeTrail(document.querySelector('.hero'),    'hero-canvas');
+  makeTrail(document.querySelector('.contact'), 'contact-canvas');
 })();
 </script>
 </html>
