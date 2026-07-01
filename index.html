@@ -1044,78 +1044,74 @@
 </script>
 
 <script>
+// ── HERO CANVAS TRAIL ──────────────────────────────────────────────
 (function(){
   function makeTrail(container, canvasId){
     const canvas = document.getElementById(canvasId);
     if(!canvas || !container) return;
     const ctx = canvas.getContext('2d');
-    let W, H;
 
+    let W, H;
     function resize(){
       W = canvas.width  = container.offsetWidth;
       H = canvas.height = container.offsetHeight;
     }
     resize();
-    new ResizeObserver(resize).observe(container);
+    window.addEventListener('resize', resize);
 
-    let pts = [];          // {x, y, hue}
-    const MAX  = 80;
-    const LIFE = 60;       // frame prima di rimuovere un punto
-    let hue    = Math.random() * 360;
-    let frame  = 0;
+    const points = [];
+    const MAX_POINTS = 120;
+    const TRAIL_WIDTH = 18;
+    let hue = 0;
+    let mouse = null;
 
     container.addEventListener('mousemove', e => {
-      const r = container.getBoundingClientRect();
-      pts.push({ x: e.clientX - r.left, y: e.clientY - r.top, hue, born: frame });
-      hue = (hue + 1.5) % 360;
-      if(pts.length > MAX) pts.shift();
+      const rect = container.getBoundingClientRect();
+      mouse = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      hue = (hue + 1.8) % 360;
+      points.push({ x: mouse.x, y: mouse.y, hue, age: 0 });
+      if(points.length > MAX_POINTS) points.shift();
     });
 
+    container.addEventListener('mouseleave', () => { mouse = null; });
+
     function draw(){
-      frame++;
+      ctx.clearRect(0, 0, W, H);
 
-      // fade del canvas precedente invece di clearRect → effetto dissolvenza
-      ctx.globalAlpha = 0.75;
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.fillRect(0, 0, W, H);
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.globalAlpha = 1;
+      if(points.length < 2){ requestAnimationFrame(draw); return; }
 
-      // rimuovi punti troppo vecchi
-      pts = pts.filter(p => frame - p.born < LIFE);
+      for(let i = 0; i < points.length; i++) points[i].age++;
+      while(points.length && points[0].age > MAX_POINTS) points.shift();
 
-      if(pts.length < 3){
-        requestAnimationFrame(draw);
-        return;
+      if(points.length < 2){ requestAnimationFrame(draw); return; }
+
+      for(let i = 1; i < points.length; i++){
+        const p0 = points[i-1];
+        const p1 = points[i];
+        const t = i / points.length;
+        const alpha = t * t * 0.85;
+        const width = TRAIL_WIDTH * t;
+
+        ctx.beginPath();
+        ctx.moveTo(p0.x, p0.y);
+        ctx.lineTo(p1.x, p1.y);
+        ctx.strokeStyle = `hsla(${p1.hue}, 90%, 60%, ${alpha})`;
+        ctx.lineWidth = width;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.stroke();
       }
 
-      // singola path continua con quadraticCurveTo → niente giunzioni visibili
-      ctx.beginPath();
-      ctx.moveTo((pts[0].x + pts[1].x) / 2, (pts[0].y + pts[1].y) / 2);
-
-      for(let i = 1; i < pts.length - 1; i++){
-        const mx = (pts[i].x + pts[i+1].x) / 2;
-        const my = (pts[i].y + pts[i+1].y) / 2;
-        ctx.quadraticCurveTo(pts[i].x, pts[i].y, mx, my);
+      if(mouse && points.length){
+        const last = points[points.length-1];
+        const grad = ctx.createRadialGradient(last.x, last.y, 0, last.x, last.y, TRAIL_WIDTH*1.6);
+        grad.addColorStop(0, `hsla(${last.hue}, 95%, 70%, 0.6)`);
+        grad.addColorStop(1, `hsla(${last.hue}, 95%, 70%, 0)`);
+        ctx.beginPath();
+        ctx.arc(last.x, last.y, TRAIL_WIDTH*1.6, 0, Math.PI*2);
+        ctx.fillStyle = grad;
+        ctx.fill();
       }
-
-      // colore basato sul punto centrale della coda
-      const mid = pts[Math.floor(pts.length / 2)];
-      ctx.strokeStyle = `hsl(${mid.hue}, 90%, 65%)`;
-      ctx.lineWidth   = 4;
-      ctx.lineCap     = 'round';
-      ctx.lineJoin    = 'round';
-      ctx.stroke();
-
-      // glow morbido alla punta
-      const last = pts[pts.length - 1];
-      const g = ctx.createRadialGradient(last.x, last.y, 0, last.x, last.y, 22);
-      g.addColorStop(0, `hsla(${last.hue}, 95%, 80%, 0.8)`);
-      g.addColorStop(1, `hsla(${last.hue}, 95%, 80%, 0)`);
-      ctx.beginPath();
-      ctx.arc(last.x, last.y, 22, 0, Math.PI * 2);
-      ctx.fillStyle = g;
-      ctx.fill();
 
       requestAnimationFrame(draw);
     }
