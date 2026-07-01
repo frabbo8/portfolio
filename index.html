@@ -440,6 +440,18 @@
   .project-gallery .full{grid-column:1 / -1;aspect-ratio:16/9;}
   .project-gallery .full img,
   .project-gallery .full .img-placeholder{aspect-ratio:16/9;object-fit:contain;background:#f3f3f3;}
+  /* duo: due immagini fianco a fianco su riga intera */
+  .gallery-duo{
+    grid-column:1 / -1;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+  .gallery-duo .gallery-item img{
+    width:100%;
+    aspect-ratio:16/9;
+    object-fit:cover;
+  }
 
   /* ---------- footer / contact ---------- */
   .contact{
@@ -593,8 +605,8 @@
       <div class="index-card-toggle"><span class="plus"></span> <span class="label-default">Scopri il progetto</span><span class="label-open">Chiudi progetto</span></div>
     </button>
 
-    <button class="index-card" data-target="axia" aria-expanded="false" aria-controls="axia">
-      <div class="index-card-thumb"><img src="assets/axia-hero.jpg" alt="" loading="lazy"></div>
+    <button class="index-card" data-target="axia" data-accent="#1a1a1a" aria-expanded="false" aria-controls="axia">
+      <div class="index-card-thumb"><img src="assets/axia-cover.jpg" alt="" loading="lazy"></div>
       <div class="index-card-meta">
         <div>
           <div class="index-card-num">02</div>
@@ -672,7 +684,7 @@
   </article>
 
   <!-- PROJECT 02 — AXIA -->
-  <article class="project" id="axia" data-project>
+  <article class="project" id="axia" data-project data-accent="#1a1a1a">
     <div class="project-inner">
       <div class="project-body">
         <div class="project-head">
@@ -686,7 +698,7 @@
           </div>
         </div>
         <div class="project-grid">
-          <img class="project-photo" src="assets/axia-functionality.jpg" alt="Dettaglio funzionale della lampada Axia: dimmer e sostegno strutturale">
+          <img class="project-photo" src="assets/axia-product.jpg" alt="Tre varianti della lampada Axia in marmo bianco, nero e travertino">
           <div class="project-info">
             <div class="info-block">
               <div class="info-label">Materia d'esame</div>
@@ -694,11 +706,11 @@
             </div>
             <div class="info-block">
               <div class="info-label">Brief</div>
-              <div class="info-value">Progettare una lampada realizzata in marmo o onice, in collaborazione con un'azienda lapidea.</div>
+              <div class="info-value">Progettare una lampada realizzata in marmo o onice, in collaborazione con Giovannozzi Marmi, azienda lapidea specializzata nella lavorazione di materiali pregiati.</div>
             </div>
             <div class="info-block">
               <div class="info-label">Approccio</div>
-              <div class="info-value">Axia nasce da uno studio scultoreo sul marmo nero: due volumi conici contrapposti che si bilanciano in equilibrio visivo. La fascia con dimmer integrato permette di regolare l'intensità luminosa, mentre il sostegno strutturale in metallo nasconde i componenti tecnici lasciando la pietra protagonista.</div>
+              <div class="info-value">Axia nasce da uno studio scultoreo sulla pietra: due volumi conici contrapposti che si bilanciano in un equilibrio visivo essenziale. La forma è disponibile in tre materiali — marmo nero Marquinia, marmo bianco Calacatta e travertino — scelti per rispecchiare il catalogo e l'identità di Giovannozzi Marmi. Il dimmer integrato permette di regolare l'intensità luminosa, mentre il sostegno strutturale in metallo cela i componenti tecnici lasciando la pietra assoluta protagonista.</div>
             </div>
             <div class="info-block">
               <div class="info-label">Software</div>
@@ -711,8 +723,11 @@
           </div>
         </div>
         <div class="project-gallery">
-          <div class="gallery-item"><img src="assets/axia-ideation.jpg" alt="Schizzi di ideazione della lampada Axia"></div>
-          <div class="gallery-item wide"><img src="assets/axia-lifestyle.jpg" alt="Lampada Axia ambientata in un interno"></div>
+          <div class="gallery-duo">
+            <div class="gallery-item"><img src="assets/axia-g3.jpg" alt="Tre viste della lampada Axia in marmo nero: frontale, laterale e posteriore"></div>
+            <div class="gallery-item"><img src="assets/axia-g4.jpg" alt="Dettaglio funzionale Axia: on/off, dimmer e sostegno strutturale"></div>
+          </div>
+          <div class="gallery-item full" style="background:#1a1a1a;"><img src="assets/axia-g5.jpg" alt="Lampada Axia accesa su un mobile in un interno scuro" style="object-fit:cover;aspect-ratio:16/9;background:#1a1a1a;"></div>
         </div>
         <button class="project-close" data-close><span class="x">×</span> Chiudi progetto</button>
       </div>
