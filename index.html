@@ -520,7 +520,15 @@
     z-index:0;
   }
   .hero > *:not(#hero-canvas){position:relative;z-index:1;}
-
+  #contact-canvas{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:0;
+  }
+  .contact > *:not(#contact-canvas){position:relative;z-index:1;}
 
   .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1);}
   .reveal.in{opacity:1;transform:translateY(0);}
@@ -570,23 +578,7 @@
 <header class="hero">
   <canvas id="hero-canvas" aria-hidden="true"></canvas>
   <span class="hero-year">PORTFOLIO — 2026</span>
-  <div class="hero-role">Product Designer</div>
   <h1>Nicolò<br>Frabetti</h1>
-  <p class="hero-sub">Sei progetti tra product design, light design e ricerca sui materiali — dalla ricerca formale al prototipo fisico.</p>
-  <div class="hero-meta">
-    <div>
-      <div class="label">Formazione</div>
-      <div class="value">IED Roma — Product Design</div>
-    </div>
-    <div>
-      <div class="label">Base</div>
-      <div class="value">Roma, Italia</div>
-    </div>
-    <div>
-      <div class="label">Contatto</div>
-      <div class="value">nicolofrabetti8@gmail.com</div>
-    </div>
-  </div>
 </header>
 
 <!-- INTRO / PHOTO -->
@@ -934,6 +926,7 @@
 
 <!-- CONTACT -->
 <footer class="contact" id="contact">
+  <canvas id="contact-canvas" aria-hidden="true"></canvas>
   <h2>Parliamo del<br>nostro prossimo<br>progetto.</h2>
   <div class="contact-grid">
     <div class="contact-block">
