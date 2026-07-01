@@ -404,6 +404,12 @@
     object-fit:cover;
     background:#eee;
   }
+  .project-photo.landscape{
+    max-width:100%;
+    aspect-ratio:4/3;
+    object-fit:contain;
+    background:transparent;
+  }
   .project-info{display:flex;flex-direction:column;gap:28px;}
   .info-block .info-label{
     font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--mute);margin-bottom:8px;
@@ -696,8 +702,7 @@
             <span class="tag">Giovannozzi Marmi</span>
           </div>
         </div>
-        <div class="project-grid">
-          <img class="project-photo" src="assets/axia-product.jpg" alt="Tre varianti della lampada Axia in marmo bianco, nero e travertino">
+        <div class="project-grid" style="grid-template-columns:1fr;">
           <div class="project-info">
             <div class="info-block">
               <div class="info-label">Materia d'esame</div>
@@ -720,6 +725,7 @@
               </div>
             </div>
           </div>
+          <img class="project-photo landscape" src="assets/axia-product.jpg" alt="Tre varianti della lampada Axia in marmo bianco, nero e travertino">
         </div>
         <div class="project-gallery">
           <div class="gallery-duo">
