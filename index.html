@@ -1044,6 +1044,10 @@
 </script>
 
 <script>
+// forza scroll in cima al caricamento
+if('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.addEventListener('load', () => window.scrollTo(0, 0));
+
 // ── HERO CANVAS TRAIL ──────────────────────────────────────────────
 (function(){
   function makeTrail(container, canvasId){
