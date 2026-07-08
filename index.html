@@ -998,6 +998,35 @@
   const cards = document.querySelectorAll('.index-card');
   const projects = document.querySelectorAll('[data-project]');
 
+  // ── responsive reposition: su mobile ogni progetto va spostato subito
+  // dopo la propria card, così l'apertura avviene sotto l'anteprima corretta.
+  // Su desktop (griglia 3 colonne) resta nella posizione originale, necessaria
+  // perché l'articolo (full-width) segua l'intera riga di card.
+  const mobileMQ = window.matchMedia('(max-width:860px)');
+
+  projects.forEach(p => {
+    p._card = document.querySelector(`.index-card[data-target="${p.id}"]`);
+    p._originalNext   = p.nextElementSibling;
+    p._originalParent = p.parentElement;
+  });
+
+  function placeForViewport(){
+    projects.forEach(p => {
+      if(!p._card) return;
+      if(mobileMQ.matches){
+        p._card.insertAdjacentElement('afterend', p);
+      } else {
+        if(p._originalNext){
+          p._originalParent.insertBefore(p, p._originalNext);
+        } else {
+          p._originalParent.appendChild(p);
+        }
+      }
+    });
+  }
+  placeForViewport();
+  mobileMQ.addEventListener('change', placeForViewport);
+
   function closeAll(){
     projects.forEach(p => p.classList.remove('is-open'));
     cards.forEach(c => { c.classList.remove('is-open'); c.setAttribute('aria-expanded','false'); });
