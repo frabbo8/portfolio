@@ -460,6 +460,26 @@
     object-fit:cover;
   }
 
+  /* ---------- gallery flow: presentazione a scorrimento continuo, senza bordi/gap/zoom ---------- */
+  .gallery-flow{
+    grid-column:1 / -1;
+    display:flex;
+    flex-direction:column;
+    gap:0;
+  }
+  .gallery-flow img{
+    width:100%;
+    display:block;
+    transition:none;
+  }
+  .gallery-flow .gallery-item{
+    overflow:visible;
+    cursor:default;
+  }
+  .gallery-flow .gallery-item:hover img{
+    transform:none;
+  }
+
   /* ---------- proto section ---------- */
   .proto-section{margin-top:48px;}
   .proto-label{
@@ -814,6 +834,20 @@
       <div class="index-card-toggle"><span class="plus"></span> <span class="label-default">Scopri il progetto</span><span class="label-open">Chiudi progetto</span></div>
     </button>
 
+    <button class="index-card" data-target="labubu" data-accent="#d81f26" aria-expanded="false" aria-controls="labubu">
+      <div class="index-card-thumb"><img src="assets/labubu-cover.jpg" alt="" loading="lazy"></div>
+      <div class="index-card-meta">
+        <div>
+          <div class="index-card-num">05</div>
+          <div class="index-card-title">Labubu<br>The Clever</div>
+        </div>
+        <div class="index-card-tags">
+          <span class="tag">Eco Design</span>
+        </div>
+      </div>
+      <div class="index-card-toggle"><span class="plus"></span> <span class="label-default">Scopri il progetto</span><span class="label-open">Chiudi progetto</span></div>
+    </button>
+
   <!-- PROJECT 04 — CLOE -->
   <!-- PROJECT 05 — ARBOR (placeholder, da completare) -->
   <article class="project" id="arbor" data-project data-accent="#7a5236">
@@ -857,6 +891,55 @@
           <div class="gallery-item"><img src="assets/arbor-detail-base.jpg" alt="Dettaglio della base in legno con innesto metallico"></div>
           <div class="gallery-item"><img src="assets/arbor-detail-wallmount.jpg" alt="Dettaglio dell'aggancio a parete in metallo"></div>
           <div class="gallery-item full"><img src="assets/arbor-detail-shelf-profile.jpg" alt="Profilo ravvicinato di una mensola in legno"></div>
+        </div>
+        <button class="project-close" data-close><span class="x">×</span> Chiudi progetto</button>
+      </div>
+    </div>
+  </article>
+
+  <!-- PROJECT 05 — LABUBU THE CLEVER -->
+  <article class="project" id="labubu" data-project data-accent="#d81f26">
+    <div class="project-inner">
+      <div class="project-body">
+        <div class="project-head">
+          <div class="project-head-left">
+            <span class="project-index">05</span>
+            <h3 class="project-title-open">Labubu The Clever</h3>
+          </div>
+          <div class="project-tags">
+            <span class="tag">Eco Design</span>
+          </div>
+        </div>
+        <div class="project-grid">
+          <img class="project-photo" src="assets/labubu-lifestyle.jpg" alt="Portachiavi Labubu ridisegnato agganciato a uno zaino per strada">
+          <div class="project-info">
+            <div class="info-block">
+              <div class="info-label">Brief</div>
+              <div class="info-value">Scegliere un oggetto di consumo ad alto impatto ambientale, calcolarne in grandi linee il Life Cycle Assessment (LCA) e ripensarlo per ridurne l'impronta, mantenendo il carattere e il valore percepito del prodotto originale.</div>
+            </div>
+            <div class="info-block">
+              <div class="info-label">Approccio</div>
+              <div class="info-value">Ho scelto come caso di studio Labubu di Pop Mart, uno dei collectible toy più diffusi al mondo, e ne ho smontato un esemplare per analizzarne materiali e processi produttivi: PET, PVC, stampaggio a iniezione, fleece, PP e cartone, per un totale stimato di 332 gCO2eq in produzione. Il redesign — "My Labubu" — trasforma la action figure in un portachiavi da zaino, riducendo drasticamente il numero di componenti e materiali a sole due plastiche (PVC e PET), portando le emissioni di produzione a 201 gCO2eq, circa il 40% in meno. Il packaging è stato ripensato come sacchetto in tessuto richiudibile, pensato per essere riutilizzato dall'utente oltre l'acquisto, invece che gettato subito dopo l'apertura.</div>
+            </div>
+            <div class="info-block">
+              <div class="info-label">Software</div>
+              <div class="software-row">
+                <span class="software-pill">Rhino 3D</span>
+                <span class="software-pill">Photoshop</span>
+                <span class="software-pill">Illustrator</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="project-gallery">
+          <div class="gallery-flow">
+            <div class="gallery-item"><img src="assets/labubu-title.jpg" alt="Titolo del progetto Labubu The Clever"></div>
+            <div class="gallery-item"><img src="assets/labubu-teardown.jpg" alt="Smontaggio e analisi dei componenti del Labubu originale"></div>
+            <div class="gallery-item"><img src="assets/labubu-lca-orig.jpg" alt="Tabella LCA del prodotto originale: materiali, emissioni e smaltimento"></div>
+            <div class="gallery-item"><img src="assets/labubu-materials.jpg" alt="Materiali e dimensioni del redesign, varianti colore della collezione"></div>
+            <div class="gallery-item"><img src="assets/labubu-reuse.jpg" alt="Concept di riuso del packaging nel rispetto dell'ambiente"></div>
+            <div class="gallery-item"><img src="assets/labubu-lca-redesign.jpg" alt="Tabella LCA del redesign a confronto con l'originale Pop Mart"></div>
+          </div>
         </div>
         <button class="project-close" data-close><span class="x">×</span> Chiudi progetto</button>
       </div>
