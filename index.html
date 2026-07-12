@@ -470,14 +470,15 @@
   .gallery-flow img{
     width:100%;
     display:block;
-    transition:none;
+    transition:none !important;
   }
   .gallery-flow .gallery-item{
     overflow:visible;
     cursor:default;
   }
-  .gallery-flow .gallery-item:hover img{
-    transform:none;
+  .gallery-flow .gallery-item:hover img,
+  .gallery-flow .gallery-item img{
+    transform:none !important;
   }
 
   /* ---------- proto section ---------- */
