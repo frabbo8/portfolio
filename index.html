@@ -1058,9 +1058,15 @@
 </script>
 
 <script>
-// forza scroll in cima al caricamento
+// forza scroll in cima al caricamento, in ogni caso
 if('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+window.addEventListener('DOMContentLoaded', () => window.scrollTo(0, 0));
 window.addEventListener('load', () => window.scrollTo(0, 0));
+// Safari iOS: la pagina può essere ripristinata dalla cache di navigazione
+// (bfcache) con lo scroll dov'era rimasto; pageshow intercetta anche questo caso.
+window.addEventListener('pageshow', () => window.scrollTo(0, 0));
+setTimeout(() => window.scrollTo(0, 0), 50);
 
 // ── HERO CANVAS TRAIL ──────────────────────────────────────────────
 (function(){
