@@ -484,58 +484,6 @@
     transform:none !important;
   }
 
-  /* ---------- figma embed ---------- */
-  .figma-embed-wrap{
-    grid-column:1 / -1;
-    margin-top:8px;
-  }
-  .figma-embed-label{
-    font-size:11px;
-    font-weight:700;
-    text-transform:uppercase;
-    letter-spacing:0.08em;
-    color:var(--mute);
-    margin-bottom:10px;
-  }
-  .figma-embed{
-    position:relative;
-    width:100%;
-    aspect-ratio:16/9;
-    background:#eee;
-    overflow:hidden;
-  }
-  .figma-embed iframe{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    border:none;
-  }
-
-  /* copertina stilizzata Jamu (CSS, niente immagine) */
-  .jamu-cover{
-    width:100%;
-    height:100%;
-    background:#0a0a0a;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:6px;
-  }
-  .jamu-cover .jamu-name{
-    font-family:var(--ff-display);
-    font-weight:900;
-    font-size:clamp(28px,5vw,44px);
-    color:#fff;
-    letter-spacing:-0.01em;
-  }
-  .jamu-cover .jamu-tag{
-    font-size:12px;
-    color:#888;
-    letter-spacing:0.04em;
-  }
-
   /* ---------- proto section ---------- */
   .proto-section{margin-top:48px;}
   .proto-label{
@@ -900,20 +848,6 @@
       <div class="index-card-toggle"><span class="plus"></span> <span class="label-default">Scopri il progetto</span><span class="label-open">Chiudi progetto</span></div>
     </button>
 
-    <button class="index-card" data-target="jamu" data-accent="#111111" aria-expanded="false" aria-controls="jamu">
-      <div class="index-card-thumb"><div class="jamu-cover"><span class="jamu-name">Jamu</span><span class="jamu-tag">Play for real</span></div></div>
-      <div class="index-card-meta">
-        <div>
-          <div class="index-card-num">06</div>
-          <div class="index-card-title">Jamu</div>
-        </div>
-        <div class="index-card-tags">
-          <span class="tag">UX/UI Design</span>
-        </div>
-      </div>
-      <div class="index-card-toggle"><span class="plus"></span> <span class="label-default">Scopri il progetto</span><span class="label-open">Chiudi progetto</span></div>
-    </button>
-
   <!-- PROJECT 04 — CLOE -->
   <!-- PROJECT 05 — ARBOR (placeholder, da completare) -->
   <article class="project" id="arbor" data-project data-accent="#7a5236">
@@ -1013,62 +947,7 @@
     </div>
   </article>
 
-  <!-- PROJECT 06 — JAMU -->
-  <article class="project" id="jamu" data-project data-accent="#111111">
-    <div class="project-inner">
-      <div class="project-body">
-        <div class="project-head">
-          <div class="project-head-left">
-            <span class="project-index">06</span>
-            <h3 class="project-title-open">Jamu</h3>
-          </div>
-          <div class="project-tags">
-            <span class="tag">UX/UI Design</span>
-            <span class="tag">Startup</span>
-          </div>
-        </div>
-        <div class="project-grid" style="grid-template-columns:1fr;">
-          <div class="project-info">
-            <div class="info-block">
-              <div class="info-label">Brief</div>
-              <div class="info-value">Il brief richiedeva la creazione di una startup a tutti gli effetti: individuare un bisogno reale per un target di persone specifico e costruire attorno ad esso un prodotto digitale — dall'idea iniziale fino a un prototipo funzionante e navigabile.</div>
-            </div>
-            <div class="info-block">
-              <div class="info-label">Approccio</div>
-              <div class="info-value">Jamu — "Play for real" — nasce seguendo l'intero processo di creazione di una startup: ricerca del bisogno, definizione del target, validazione dell'idea, progettazione dell'architettura dell'app e infine design dell'interfaccia. Il lavoro si è concluso con un prototipo interattivo navigabile, per testare concretamente il flusso utente pensato per il prodotto.</div>
-            </div>
-            <div class="info-block">
-              <div class="info-label">Software</div>
-              <div class="software-row">
-                <span class="software-pill">Figma</span>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div class="figma-embed-wrap">
-          <div class="figma-embed-label">Presentazione del progetto</div>
-          <div class="figma-embed">
-            <iframe src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fslides%2F4dr2xZL1anWAOY7h1W5fl3%3Fnode-id%3D1-2" allowfullscreen loading="lazy"></iframe>
-          </div>
-        </div>
-
-        <div class="figma-embed-wrap" style="margin-top:32px;">
-          <div class="figma-embed-label">Simulazione interattiva del prototipo</div>
-          <div class="figma-embed">
-            <iframe src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FREgNn50ERKvWxljwUE3ZgA%3Fnode-id%3D0-1" allowfullscreen loading="lazy"></iframe>
-          </div>
-        </div>
-
-        <div class="info-block" style="margin-top:32px;padding-top:32px;border-top:1px solid var(--line-light);">
-          <div class="info-label">Team</div>
-          <div class="info-value">Nicolò Frabetti, Sergio Cosentino</div>
-        </div>
-
-        <button class="project-close" data-close><span class="x">×</span> Chiudi progetto</button>
-      </div>
-    </div>
-  </article>
 
 
   </div>
