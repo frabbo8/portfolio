@@ -475,6 +475,11 @@
     display:block;
     transition:none !important;
   }
+  .gallery-flow video{
+    width:100% !important;
+    height:auto !important;
+    display:block;
+  }
   .gallery-flow .gallery-item{
     overflow:visible;
     cursor:default;
@@ -849,7 +854,7 @@
     </button>
 
     <button class="index-card" data-target="jamu" data-accent="#111111" aria-expanded="false" aria-controls="jamu">
-      <div class="index-card-thumb"><div class="img-placeholder">Copertina<br>da inserire</div></div>
+      <div class="index-card-thumb"><img src="assets/jamu-01-cover.jpg" alt="Copertina del progetto Jamu" loading="lazy"></div>
       <div class="index-card-meta">
         <div>
           <div class="index-card-num">06</div>
@@ -961,7 +966,7 @@
     </div>
   </article>
 
-  <!-- PROJECT 06 — JAMU (immagini da inserire) -->
+  <!-- PROJECT 06 — JAMU -->
   <article class="project" id="jamu" data-project data-accent="#111111">
     <div class="project-inner">
       <div class="project-body">
@@ -975,8 +980,7 @@
             <span class="tag">Concept Startup</span>
           </div>
         </div>
-        <div class="project-grid">
-          <div class="project-photo img-placeholder">Foto prodotto<br>da inserire</div>
+        <div class="project-grid" style="grid-template-columns:1fr;">
           <div class="project-info">
             <div class="info-block">
               <div class="info-label">Brief</div>
@@ -997,9 +1001,18 @@
           </div>
         </div>
         <div class="project-gallery">
-          <div class="gallery-item wide"><div class="img-placeholder">Immagine<br>da inserire</div></div>
-          <div class="gallery-item"><div class="img-placeholder">Immagine<br>da inserire</div></div>
-          <div class="gallery-item"><div class="img-placeholder">Immagine<br>da inserire</div></div>
+          <div class="gallery-flow">
+            <div class="gallery-item"><img src="assets/jamu-01-cover.jpg" alt="Copertina del progetto Jamu"></div>
+            <div class="gallery-item"><img src="assets/jamu-02-logo.jpg" alt="Logo Jamu, tagline Play for real"></div>
+            <div class="gallery-item"><img src="assets/jamu-03-problema.jpg" alt="Slide: il problema affrontato dal progetto Jamu"></div>
+            <div class="gallery-item"><img src="assets/jamu-04-soluzione.jpg" alt="Slide: la soluzione proposta da Jamu"></div>
+            <div class="gallery-item"><img src="assets/jamu-05-live-match-chat.jpg" alt="Slide: funzionalità Live, Match e Chat"></div>
+            <div class="gallery-item"><video src="assets/jamu-06-video1.mp4" autoplay muted loop playsinline></video></div>
+            <div class="gallery-item"><video src="assets/jamu-07-video2.mp4" autoplay muted loop playsinline></video></div>
+            <div class="gallery-item"><video src="assets/jamu-08-video3.mp4" autoplay muted loop playsinline></video></div>
+            <div class="gallery-item"><img src="assets/jamu-09-tagline.jpg" alt="Slide: Collaborare dovrebbe essere facile, con Jamu lo è"></div>
+            <div class="gallery-item"><img src="assets/jamu-10-band.jpg" alt="Foto del team durante la simulazione del progetto"></div>
+          </div>
         </div>
         <button class="project-close" data-close><span class="x">×</span> Chiudi progetto</button>
       </div>
