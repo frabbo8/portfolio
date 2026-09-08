@@ -1113,10 +1113,7 @@
       card.setAttribute('aria-expanded','true');
     }
 
-    setTimeout(()=>{
-      if(id === 'orange-juicer') return; // resta dove hai cliccato, nessuno scroll
-      target.scrollIntoView({behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'start'});
-    }, 80);
+    // il pannello si apre in loco: nessuno scroll automatico
   }
 
   cards.forEach(card=>{
