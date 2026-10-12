@@ -212,7 +212,7 @@
         <sc-for list="{{ rowA }}" as="it" hint-placeholder-count="8">
           <div style="flex:0 0 auto;padding:clamp(18px,2.4vw,34px) clamp(8px,1vw,14px);">
             <button type="button" onClick="{{ it.open }}" aria-label="{{ it.label }}" style="display:block;padding:0;margin:0;border:0;background:none;cursor:zoom-in;width:clamp(130px,13.5vw,200px);aspect-ratio:1/1;border-radius:10px;overflow:hidden;transform:rotate({{ it.rot }}) translateY({{ it.dy }});box-shadow:0 10px 28px -12px color-mix(in oklch,var(--text) 40%,transparent);transition:transform .35s cubic-bezier(.2,.7,.2,1);" style-hover="transform:rotate(0deg) translateY(0) scale(1.08);" style-focus="outline:2px solid var(--accent-text);outline-offset:3px;">
-              <img src="{{ it.src }}" alt="" loading="lazy" decoding="async" draggable="false" onError="{{ hideImg }}" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(calc(1 - .2 * var(--gray)));">
+              <img ref="{{ it.imgRef }}" alt="" decoding="async" draggable="false" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(calc(1 - .2 * var(--gray)));">
             </button>
           </div>
         </sc-for>
@@ -1643,7 +1643,7 @@ class Component extends DCLogic {
         const rots = ['-5deg','3deg','-2deg','6deg','-4deg','2deg','-6deg','4deg'], dys = ['-10px','8px','0px','12px','-6px','6px','-12px','2px'];
         const all = files.map(f => ({ src: 'assets/interessi/' + f + '.jpg', cap: T.intLabel, alt: T.intLabel }));
         const mk = (list, off) => list.map((x, k) => { const gi = all.indexOf(x);
-          return { src: x.src, rot: rots[(k + off) % 8], dy: dys[(k * 3 + off) % 8], label: T.openImg + T.intLabel + ' ' + (gi + 1),
+          return { src: x.src, imgRef: (el) => { if (el && el.getAttribute('src') !== x.src) el.setAttribute('src', x.src); }, rot: rots[(k + off) % 8], dy: dys[(k * 3 + off) % 8], label: T.openImg + T.intLabel + ' ' + (gi + 1),
             open: (e) => this.lbOpen(all, gi, e.currentTarget) }; });
         const A = mk(all, 0);
         return { rowA: A.concat(A) };
