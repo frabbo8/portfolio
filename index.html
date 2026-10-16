@@ -29,6 +29,8 @@
   @property --accent-text{syntax:'<color>';inherits:true;initial-value:#6D10FD;}
   @property --darkness{syntax:'<number>';inherits:true;initial-value:0;}
   html{background:var(--bg);}
+  @keyframes langNudge{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+  @keyframes langHintIn{from{opacity:0;transform:translateY(-8px) scale(.97);}to{opacity:1;transform:none;}}
   @keyframes luceMarq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
   @media (prefers-reduced-motion:reduce){[style*=luceMarq]{animation:none !important;}}
   body{margin:0;background:var(--bg);color:var(--text);font-family:'Outfit',-apple-system,'SF Pro Text',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
@@ -50,6 +52,18 @@
   <div ref="{{ haloRef }}" aria-hidden="true" style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;background-size:48px 48px;transition:opacity .5s ease;"></div>
   <div aria-hidden="true" style="position:fixed;left:0;right:0;bottom:0;height:35vh;z-index:0;pointer-events:none;background:linear-gradient(to top,var(--veil),transparent);"></div>
 
+  <sc-if value="{{ langHint }}" hint-placeholder-val="{{ false }}">
+    <div ref="{{ hintRef }}" role="status" lang="{{ tr.langOtherCode }}" style="{{ hintBox }}">
+      <svg data-arrow="1" viewBox="0 0 16 12" aria-hidden="true" style="{{ hintArrow }}"><path d="M8 11V2M3.5 6 8 1.5 12.5 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <div data-glass="1" style="display:flex;align-items:center;gap:12px;padding:8px 8px 8px 14px;border-radius:999px;background-color:var(--glass-bg);backdrop-filter:blur(var(--glass-blur)) saturate(140%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(140%);border:1px solid var(--glass-border);box-shadow:var(--glass-shadow);">
+        <span aria-hidden="true" style="width:8px;height:8px;border-radius:50%;flex-shrink:0;background:linear-gradient(90deg in oklch,#FF5A1E,#6D10FD);box-shadow:0 0 calc(10px * var(--darkness)) #6D10FD;"></span>
+        <span style="font-size:14px;line-height:1.3;color:var(--text);text-wrap:pretty;">{{ tr.hintText }}</span>
+        <button type="button" onClick="{{ toggleLang }}" style="font:inherit;font-size:13px;font-weight:600;letter-spacing:.02em;white-space:nowrap;min-height:36px;padding:0 14px;border-radius:999px;border:none;cursor:pointer;background:var(--text);color:var(--bg);">{{ tr.hintBtn }}</button>
+        <button type="button" onClick="{{ closeHint }}" aria-label="{{ tr.hintClose }}" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;flex-shrink:0;border-radius:999px;border:none;cursor:pointer;background:none;color:var(--text-mute);"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 2l8 8M10 2 2 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></button>
+      </div>
+    </div>
+  </sc-if>
+
   <div ref="{{ lightRef }}" aria-hidden="true" style="position:fixed;top:0;left:0;right:0;z-index:95;pointer-events:none;transform-origin:0 50%;transform:scaleX(0);">
     <div style="height:2px;background:linear-gradient(90deg in oklch,#FF5A1E,#6D10FD,#0010FD);"></div>
     <div style="height:8px;margin-top:-2px;background:linear-gradient(90deg in oklch,#FF5A1E,#6D10FD,#0010FD);filter:blur(6px);opacity:calc(var(--darkness) * .8);"></div>
@@ -66,13 +80,13 @@
             <a href="#metodo" style="font-size:14px;font-weight:400;color:var(--text);padding:9px 14px;border-radius:999px;white-space:nowrap;" style-hover="background:color-mix(in oklch,var(--text) 8%,transparent);">{{ tr.navMethod }}</a>
             <a href="#contatti" style="font-size:14px;font-weight:400;color:var(--text);padding:9px 14px;border-radius:999px;white-space:nowrap;" style-hover="background:color-mix(in oklch,var(--text) 8%,transparent);">{{ tr.navContact }}</a>
             <a href="Frabetti_Nicolo_CV.pdf" download="" style="font-size:14px;font-weight:600;color:var(--accent-text);padding:9px 14px;border-radius:999px;white-space:nowrap;" style-hover="background:color-mix(in oklch,var(--text) 8%,transparent);" aria-label="{{ tr.cvAria }}"><span style="display:inline-flex;align-items:center;gap:5px;">CV <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true" style="display:inline-block;vertical-align:-.12em;flex-shrink:0;"><path d="M8 2.5v11M3.5 9 8 13.5 12.5 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a>
-            <button type="button" onClick="{{ toggleLang }}" aria-label="{{ tr.langAria }}" lang="{{ tr.langOtherCode }}" style="font:inherit;font-size:13px;font-weight:600;letter-spacing:.06em;color:var(--text);padding:9px 12px;border-radius:999px;border:none;background:none;cursor:pointer;" style-hover="background:color-mix(in oklch,var(--text) 8%,transparent);">{{ tr.langOther }}</button>
+            <button type="button" data-langbtn="1" onClick="{{ toggleLang }}" aria-label="{{ tr.langAria }}" lang="{{ tr.langOtherCode }}" style="font:inherit;font-size:13px;font-weight:600;letter-spacing:.06em;color:var(--text);padding:9px 12px;border-radius:999px;border:none;background:none;cursor:pointer;" style-hover="background:color-mix(in oklch,var(--text) 8%,transparent);">{{ tr.langOther }}</button>
           </nav>
         </sc-if>
 
         <sc-if value="{{ showMenuBtn }}" hint-placeholder-val="{{ false }}">
           <div style="position:relative;">
-            <button type="button" onClick="{{ toggleMenu }}" aria-expanded="{{ menuExpanded }}" aria-controls="menu-mobile" aria-label="Menu" data-glass="1" style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;cursor:pointer;color:var(--text);background-color:var(--glass-bg);backdrop-filter:blur(var(--glass-blur)) saturate(130%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(130%);border:1px solid var(--glass-border);box-shadow:var(--glass-shadow);">
+            <button type="button" onClick="{{ toggleMenu }}" aria-expanded="{{ menuExpanded }}" aria-controls="menu-mobile" aria-label="Menu" data-menubtn="1" data-glass="1" style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;cursor:pointer;color:var(--text);background-color:var(--glass-bg);backdrop-filter:blur(var(--glass-blur)) saturate(130%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(130%);border:1px solid var(--glass-border);box-shadow:var(--glass-shadow);">
               <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 5h11M2.5 11h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg>
             </button>
             <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
@@ -734,7 +748,7 @@
         </div>
       </div>
       <div ref="{{ lbStageRef }}" onPointerDown="{{ lbDown }}" onPointerMove="{{ lbMove }}" onPointerUp="{{ lbUp }}" onPointerCancel="{{ lbUp }}" onWheel="{{ lbWheel }}" onDoubleClick="{{ lbDbl }}" style="flex:1;min-height:0;position:relative;overflow:hidden;touch-action:none;display:flex;align-items:center;justify-content:center;padding:0 clamp(8px,5vw,88px);">
-        <sc-if value="{{ lb.isVid }}" hint-placeholder-val="{{ false }}"><video src="{{ lb.src }}" aria-label="{{ lb.alt }}" controls autoplay loop muted playsinline style="max-width:100%;max-height:100%;border-radius:12px;background:#000;"></video></sc-if>
+        <sc-if value="{{ lb.isVid }}" hint-placeholder-val="{{ false }}"><video ref="{{ lb.vidRef }}" aria-label="{{ lb.alt }}" controls autoplay loop muted playsinline style="max-width:100%;max-height:100%;border-radius:12px;background:#000;"></video></sc-if>
         <sc-if value="{{ lb.isImg }}" hint-placeholder-val="{{ true }}"><img ref="{{ lbImgRef }}" src="{{ lb.src }}" alt="{{ lb.alt }}" loading="lazy" decoding="async" draggable="false" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:12px;user-select:none;-webkit-user-select:none;transform-origin:center center;will-change:transform;"></sc-if>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px clamp(14px,3vw,32px) 20px;">
@@ -768,10 +782,23 @@ function initLang(){
     if(q === 'it' || q === 'en') return q;
     const s = localStorage.getItem(LANG_KEY); if(s === 'it' || s === 'en') return s;
   } catch(e) {}
-  return /^it\b/i.test(navigator.language || 'it') ? 'it' : 'en';
+  let tz = ''; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch(e) {}
+  return /^Europe\/(Rome|Vatican|San_Marino)$/.test(tz) ? 'it' : 'en';
+}
+function langManual(){
+  try { if(new URLSearchParams(location.search).get('lang')) return true; return !!localStorage.getItem(LANG_KEY); } catch(e) { return false; }
+}
+const IT_POLY = [
+  [[6.6,45.1],[7.0,45.9],[7.9,46.0],[8.45,46.45],[8.75,46.1],[8.9,45.85],[9.05,45.85],[9.3,46.45],[10.1,46.6],[10.5,46.9],[11.2,47.05],[12.2,47.1],[12.7,46.65],[13.7,46.5],[13.6,45.75],[13.0,45.6],[12.3,45.2],[12.5,44.4],[13.6,43.5],[14.2,42.4],[15.2,41.9],[16.1,41.9],[18.0,40.6],[18.6,40.1],[17.9,39.9],[16.6,39.6],[17.2,39.0],[16.6,38.4],[15.6,37.85],[15.6,38.3],[15.8,39.5],[15.0,40.2],[14.3,40.6],[13.7,41.2],[12.4,41.7],[11.1,42.4],[10.5,43.0],[10.2,43.9],[9.2,44.3],[8.2,43.9],[7.5,43.78],[7.6,44.2],[6.9,44.4]],
+  [[12.3,37.8],[13.3,38.3],[15.7,38.3],[15.1,37.3],[15.2,36.6],[14.3,36.9],[12.3,37.5]],
+  [[8.1,40.6],[8.4,41.3],[9.3,41.3],[9.9,40.5],[9.6,39.1],[8.9,38.8],[8.3,39.0]]
+];
+function inItaly(lat, lng){
+  return IT_POLY.some(poly => { let c = false; for(let i = 0, j = poly.length - 1; i < poly.length; j = i++){ const [xi, yi] = poly[i], [xj, yj] = poly[j]; if((yi > lat) !== (yj > lat) && lng < (xj - xi) * (lat - yi) / (yj - yi) + xi) c = !c; } return c; });
 }
 const I18N = {
   it: {
+    hintText: 'Prefer English? You can switch language here.', hintBtn: 'English', hintClose: 'Close',
     navProj: 'Progetti', navMethod: 'Metodo', navContact: 'Contatti', navAria: 'Principale', cvAria: 'Scarica CV (PDF)',
     langOther: 'EN', langOtherLong: 'English', langOtherCode: 'en', langAria: 'Switch to English',
     modeAria: 'Modalità luce', modes: ['Auto', 'Giorno', 'Notte'], rise: 'Alba', set: 'Tramonto', romeNow: 'a Roma sono le',
@@ -817,6 +844,7 @@ const I18N = {
     imgOf: (i, n) => 'Immagine ' + i + ' di ' + n
   },
   en: {
+    hintText: "Preferisci l'italiano? Puoi cambiare lingua qui.", hintBtn: 'Italiano', hintClose: 'Chiudi',
     navProj: 'Projects', navMethod: 'Method', navContact: 'Contact', navAria: 'Main', cvAria: 'Download CV (PDF)',
     langOther: 'IT', langOtherLong: 'Italiano', langOtherCode: 'it', langAria: 'Passa all’italiano',
     modeAria: 'Light mode', modes: ['Auto', 'Day', 'Night'], rise: 'Sunrise', set: 'Sunset', romeNow: "in Rome it's",
@@ -1000,6 +1028,7 @@ const MODE_KEY = 'luce-mode';
 
 class Component extends DCLogic {
   state = { lang: initLang(), geo: 'rome', geoStatus: 'idle', menuOpen: false, ready: !!window.PF, active: 0, mobile: false, narrow: false, night: false, open: null, lit: false, hover: null, symHover: null, lineOverride: null, revealed: {}, lb: null, cols: 3, reduce: false, mode: 'auto', clockOpen: false, phase: 'GIORNO', sun: null, arcW: 1200 };
+  hintRef = (el) => { this._hintEl = el; if(el) requestAnimationFrame(() => this.placeHint()); };
   metRef = (el) => {
     if(!el || this.metIO) return;
     this.metIO = new IntersectionObserver(es => { if(es[0].isIntersecting){ this.setState({ metLit: true }); this.metIO.disconnect(); } }, { rootMargin: '0px 0px -30% 0px' });
@@ -1045,7 +1074,7 @@ class Component extends DCLogic {
     this.measureArc();
     this.glassFallback();
     let gs = null; try { gs = localStorage.getItem(GEO_KEY); } catch(e) {}
-    if(gs === 'granted') this.geoRequest(); else if(gs === 'denied') this.setState({ geoStatus: 'denied' });
+    if(gs === 'granted') this.geoRequest(); else if(gs === 'denied'){ this.setState({ geoStatus: 'denied' }); setTimeout(() => this.showLangHint(), 1600); }
     document.documentElement.lang = this.state.lang;
     this.sizeHero();
   }
@@ -1283,6 +1312,9 @@ class Component extends DCLogic {
       geoWhere: geoHere && this.loc ? T.whereHere + ' · ' + coord(this.loc.lat, 'N', 'S') + ' ' + coord(this.loc.lng, 'E', 'W') : T.whereRome,
       showRome: geoHere && CUR_TZ !== 'Europe/Rome',
       tr: T, toggleLang: () => this.setLang(this.state.lang === 'it' ? 'en' : 'it'),
+      langHint: !!this.state.langHint, hintRef: this.hintRef, closeHint: () => { clearTimeout(this._hintT); this.setState({ langHint: false }); },
+      hintArrow: 'position:absolute;top:-12px;width:16px;height:12px;color:var(--text);' + (this.reduce ? '' : 'animation:langNudge 1.4s ease-in-out infinite;'),
+      hintBox: 'position:fixed;z-index:92;top:72px;right:16px;max-width:calc(100vw - 24px);' + (this.reduce ? '' : 'animation:langHintIn .5s cubic-bezier(.2,.8,.2,1) both;'),
       icon: { sun: phase === 'GIORNO', horizon: phase === "ORA D'ORO" || phase === 'CREPUSCOLO', moon: phase === 'ORA BLU' || phase === 'NOTTE' },
       clockOpen, clockExpanded: clockOpen ? 'true' : 'false',
       openClock: () => { if(!this.state.clockOpen) this.setState({ clockOpen: true }); },
@@ -1591,7 +1623,7 @@ class Component extends DCLogic {
     if(eC > 0 && !this._geoAuto){ this._geoAuto = true; if(this.state.geoStatus === 'idle') this.geoRequest(); }
   };
   P.geoRequest = function(){
-    if(!navigator.geolocation){ this.setState({ geoStatus: 'denied' }); return; }
+    if(!navigator.geolocation){ this.setState({ geoStatus: 'denied' }); this.showLangHint(); return; }
     if(this.state.geoStatus === 'pending') return;
     this.setState({ geoStatus: 'pending' });
     navigator.geolocation.getCurrentPosition(pos => {
@@ -1600,16 +1632,34 @@ class Component extends DCLogic {
       this.loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
       CUR_TZ = tz; this._samples = null;
       this.setState({ geo: 'here', geoStatus: 'granted' }, () => { this.configureTime(); this.tickLight(false, .5); this.tickClock(); });
+      if(!langManual()){ const l = inItaly(this.loc.lat, this.loc.lng) ? 'it' : 'en'; if(l !== this.state.lang) this.setLang(l, true); }
       // aggancio per analytics: window.addEventListener('luce:posizione', e => …)
       window.dispatchEvent(new CustomEvent('luce:posizione', { detail: { lat: this.loc.lat, lng: this.loc.lng, tz } }));
     }, err => {
       const denied = err && err.code === 1;
       if(denied) try { localStorage.setItem(GEO_KEY, 'denied'); } catch(e) {}
       this.setState({ geoStatus: denied ? 'denied' : 'idle' });
+      this.showLangHint();
     }, { enableHighAccuracy: false, timeout: 12000, maximumAge: 6 * 3600e3 });
   };
-  P.setLang = function(l){
-    try { localStorage.setItem(LANG_KEY, l); } catch(e) {}
+  P.showLangHint = function(){
+    if(this.state.langHint || langManual()) return;
+    try { if(sessionStorage.getItem('luce-langhint')) return; sessionStorage.setItem('luce-langhint', '1'); } catch(e) {}
+    this.setState({ langHint: true });
+    clearTimeout(this._hintT); this._hintT = setTimeout(() => this.setState({ langHint: false }), 14000);
+    if(!this._hintRs){ this._hintRs = () => this.placeHint(); addEventListener('resize', this._hintRs); }
+  };
+  P.placeHint = function(){
+    const el = this._hintEl; if(!el) return;
+    const t = [...document.querySelectorAll('[data-langbtn],[data-menubtn]')].find(x => x.offsetParent); if(!t) return;
+    const r = t.getBoundingClientRect(), w = el.offsetWidth, cx = r.left + r.width / 2;
+    const left = Math.max(12, Math.min(innerWidth - w - 12, cx - w + 40));
+    el.style.left = left + 'px'; el.style.top = (r.bottom + 14) + 'px';
+    const a = el.querySelector('[data-arrow]'); if(a) a.style.left = Math.max(14, Math.min(w - 30, cx - left - 8)) + 'px';
+  };
+  P.setLang = function(l, auto){
+    if(!auto) try { localStorage.setItem(LANG_KEY, l); } catch(e) {}
+    if(!auto){ clearTimeout(this._hintT); this.setState({ langHint: false }); }
     if(window.PF && window.PF.setLang) window.PF.setLang(l);
     document.documentElement.lang = l;
     this.setState({ lang: l, menuOpen: false }, () => this.tickLight(false));
@@ -1839,7 +1889,7 @@ class Component extends DCLogic {
 
     if(lb){
       const it = lb.items[lb.i];
-      extra.lb = { open: true, isVid: !!it.video, isImg: !it.video, src: it.src, alt: it.alt, cap: it.cap, label: T.imgOf(lb.i + 1, lb.items.length) + ': ' + it.cap,
+      extra.lb = { open: true, isVid: !!it.video, isImg: !it.video, src: it.src, vidRef: (el) => { if (el && it.src && el.getAttribute('src') !== it.src) el.setAttribute('src', it.src); }, alt: it.alt, cap: it.cap, label: T.imgOf(lb.i + 1, lb.items.length) + ': ' + it.cap,
         counter: String(lb.i + 1).padStart(2, '0') + ' / ' + String(lb.items.length).padStart(2, '0') };
     }
     const rel = (e) => { const r = e.currentTarget.getBoundingClientRect(); return [e.clientX - r.left - r.width / 2, e.clientY - r.top - r.height / 2]; };
